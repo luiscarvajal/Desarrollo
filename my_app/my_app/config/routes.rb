@@ -1,9 +1,7 @@
 MyApp::Application.routes.draw do
-  resources :usuarios
+  resources :users
 
-  get "hola_mundo/index"
-
-  resources :messages
+  resources :comentarios
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
