@@ -1,0 +1,32 @@
+<h1>Listing comentarios</h1>
+
+<table>
+  <tr>
+    <th>Id comentario</th>
+    <th>Mensaje</th>
+    <th>Tag</th>
+    <th>Hora publicacion</th>
+    <th>Fecha publicacion</th>
+    <th>Creador</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @comentarios.each do |comentario| %>
+  <tr>
+    <td><%= comentario.id_comentario %></td>
+    <td><%= comentario.mensaje %></td>
+    <td><%= comentario.tag %></td>
+    <td><%#= comentario.hora_publicacion %></td>
+    <td><%= comentario.user %></td>
+    <td><%= link_to 'Show', comentario %></td>
+    <td><%= link_to 'Edit', edit_comentario_path(comentario) %></td>
+    <td><%= link_to 'Destroy', comentario, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Comentario', new_comentario_path %>

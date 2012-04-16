@@ -1,0 +1,41 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Id usuario</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Correo</th>
+    <th>Nick name</th>
+    <th>Pais</th>
+    <th>Biografia</th>
+    <th>Password</th>
+    <th>Foto</th>
+    <th>Id comentario</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.id_usuario %></td>
+    <td><%= user.nombre %></td>
+    <td><%= user.apellido %></td>
+    <td><%= user.correo %></td>
+    <td><%= user.nick_name %></td>
+    <td><%= user.pais %></td>
+    <td><%= user.biografia %></td>
+    <td><%= user.password %></td>
+    <td><%= user.foto %></td>
+    <td><%= user.comentarios %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User', new_user_path %>
