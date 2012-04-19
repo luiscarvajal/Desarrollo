@@ -1,9 +1,16 @@
 class ComentariosController < ApplicationController
+  
+  
+  before_filter :get_user
+
+  def get_user
+    @user = User.find(params[:user_id])
+  end
+
   # GET /comentarios
   # GET /comentarios.json
   def index
-    @comentarios = Comentario.all
-
+    @comentarios = @user.comentarios
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @comentarios }
@@ -13,7 +20,7 @@ class ComentariosController < ApplicationController
   # GET /comentarios/1
   # GET /comentarios/1.json
   def show
-    @comentario = Comentario.find(params[:id])
+    @comentario = @user.comentarios.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -39,28 +46,38 @@ class ComentariosController < ApplicationController
 
   # POST /comentarios
   # POST /comentarios.json
+
   def create
-    @comentario = Comentario.new(params[:comentario])
-    
+    @miArreglo = []
+    @miArreglo=[Comentario.new(params[:comentario])];
+    @user.comentarios.push(@miArreglo)
+    #@comentario = @user.comentarios
+    @user.save
+    #@comentario = @user.comentarios << Comentario.new(params[:comentario])
+    #@comentario = @user.comentarios.new(:mensaje =>)
     respond_to do |format|
-      if @comentario.save
-        format.html { redirect_to @comentario, notice: 'Comentario was successfully created.' }
-        format.json { render json: @comentario, status: :created, location: @comentario }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @comentario.errors, status: :unprocessable_entity }
-      end
+      #if @comentario.save
+      format.html { redirect_to [@user, @comentario],
+        notice: 'El comentario a sido creado.'} # new.html.erb
+
+      format.json { render json: [@user, @comentario],
+        status: :created,
+      location: [@user, @comentario]}
+#      else
+#        format.html { render action: "new" }
+#        format.json { render json: @comentario.errors,
+#          status: :unprocessable_entity }
+      #end
     end
   end
 
   # PUT /comentarios/1
   # PUT /comentarios/1.json
   def update
-    @comentario = Comentario.find(params[:id])
-
+    @comentario = @user.comentarios.find(params[:id])
     respond_to do |format|
       if @comentario.update_attributes(params[:comentario])
-        format.html { redirect_to @comentario, notice: 'Comentario was successfully updated.' }
+        format.html { redirect_to [@user,@comentario], notice: 'Comentario was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -72,11 +89,10 @@ class ComentariosController < ApplicationController
   # DELETE /comentarios/1
   # DELETE /comentarios/1.json
   def destroy
-    @comentario = Comentario.find(params[:id])
+    @comentario = @user.comentarios.find(params[:id])
     @comentario.destroy
-
     respond_to do |format|
-      format.html { redirect_to comentarios_url }
+      format.html { redirect_to user_comentarios_url }
       format.json { head :no_content }
     end
   end

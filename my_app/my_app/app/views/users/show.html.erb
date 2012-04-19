@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Id usuario:</b>
-  <%= @user.id_usuario %>
-</p>
-
-<p>
   <b>Nombre:</b>
   <%= @user.nombre %>
 </p>
@@ -36,15 +31,31 @@
 </p>
 
 <p>
-  <b>Password:</b>
-  <%= @user.password %>
-</p>
-
-<p>
   <b>Foto:</b>
   <%= @user.foto %>
 </p>
 
+<table>
+  <tr>
+    <th>Id comentario</th>
+    <th>Mensaje</th>
+    <th>Tag</th>
+    <th>Hora publicacion</th>
+    <th>Fecha publicacion</th>
+    <th>Creador</th>
+    <th></th>
+  </tr>
+
+<% @user.comentarios.each do |comentario| %>
+  <tr>
+    <td><%= comentario.mensaje %></td>
+    <td><%#= comentario.user %></td>
+    <td><%= link_to 'Show', [@user, comentario] %></td>
+    <td><%= link_to 'Edit', edit_user_comentario_path(@user,comentario) %></td>
+    <td><%= link_to 'Destroy', [@user,comentario], confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
