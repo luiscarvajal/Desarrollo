@@ -15,18 +15,17 @@
 
 <% @comentarios.each do |comentario| %>
   <tr>
-    <td><%= comentario.id_comentario %></td>
     <td><%= comentario.mensaje %></td>
-    <td><%= comentario.tag %></td>
+    <td><%#= comentario.tag %></td>
     <td><%#= comentario.hora_publicacion %></td>
     <td><%= comentario.user %></td>
-    <td><%= link_to 'Show', comentario %></td>
-    <td><%= link_to 'Edit', edit_comentario_path(comentario) %></td>
-    <td><%= link_to 'Destroy', comentario, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', [@user, comentario] %></td>
+    <td><%= link_to 'Edit', edit_user_comentario_path(@user,comentario) %></td>
+    <td><%= link_to 'Destroy', [@user,comentario], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Comentario', new_comentario_path %>
+<%= link_to 'Nuevo Comentario', new_user_comentario_path(@user) %>

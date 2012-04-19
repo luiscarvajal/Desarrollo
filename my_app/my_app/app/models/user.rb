@@ -12,7 +12,4 @@ class User
   key :password, String
   key :foto, String
   many :comentarios
-  timestamps!
-  
-
 end

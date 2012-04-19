@@ -1,4 +1,4 @@
-<%= form_for(@comentario) do |f| %>
+<%= form_for([@user,@comentario]) do |f| %>
   <% if @comentario.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comentario.errors.count, "error") %> prohibited this comentario from being saved:</h2>
@@ -10,38 +10,14 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :id_comentario %><br />
-    <%= f.number_field :id_comentario %>
-  </div>
   <div class="field">
     <%= f.label :mensaje %><br />
     <%= f.text_area :mensaje %>
-  </div>
-  <div class="field">
-    <%= f.label :tag %><br />
-    <%= f.text_field :tag %>
   </div>
   <%#*<div class="field">%>
     <%#= f.label :hora_publicacion %><br />
     <%#= f.datetime_select :hora_publicacion %>
   <%#*</div>%>
-  <% users = User.all %>
-  <%# if users.empty? %>
-    <%#*No hay usuarios%>
-  <%# end %>
-  <%# users.each do |user|%>
-      <%#*<div class="field">%>
-        <%#= f.label :user %><br />
-        <%#=f.text_field :user, :value => user.id_usuario   %>
-      <%#*</div>%>
-  <%# end %>
-
-  <div class="field">
-    <%= f.label :Creador %><br />
-    <%=select("post", "person_id", User.all.collect {|p| [ p.nombre, p.id ] }, {:include_blank => true})%>
-  </div>
         
     <div class="actions">
       <%= f.submit %>
