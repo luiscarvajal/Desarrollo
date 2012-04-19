@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id usuario:</b>
+  <%= @token.id_usuario %>
+</p>
+
+<p>
+  <b>Hora ini:</b>
+  <%= @token.hora_ini %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @token.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_token_path(@token) %> |
+<%= link_to 'Back', tokens_path %>

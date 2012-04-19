@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id_usuario: 1
+  hora_ini: 2012-04-19 11:52:07
+  status: MyString
+
+two:
+  id_usuario: 1
+  hora_ini: 2012-04-19 11:52:07
+  status: MyString

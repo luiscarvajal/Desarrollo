@@ -1,4 +1,6 @@
 MyApp::Application.routes.draw do
+  resources :tokens
+
   resources :users do
     resources :comentarios
   end
