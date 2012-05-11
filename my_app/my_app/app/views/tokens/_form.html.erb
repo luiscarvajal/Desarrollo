@@ -1,4 +1,4 @@
-<%= form_for(@token) do |f| %>
+<%= form_for([@user,@token]) do |f| %>
   <% if @token.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@token.errors.count, "error") %> prohibited this token from being saved:</h2>
@@ -12,16 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :id_usuario %><br />
-    <%= f.number_field :id_usuario %>
-  </div>
-  <div class="field">
     <%= f.label :hora_ini %><br />
-    <%= f.time_select :hora_ini %>
+    <%= f.text_field :hora_ini %>
   </div>
   <div class="field">
     <%= f.label :status %><br />
     <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :ip %><br />
+    <%= f.text_field :ip %>
   </div>
   <div class="actions">
     <%= f.submit %>
