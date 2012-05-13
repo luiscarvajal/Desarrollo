@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TokenTest < ActiveSupport::TestCase
+class ArchivoTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

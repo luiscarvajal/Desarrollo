@@ -1,0 +1,24 @@
+<h1>Listado tags</h1>
+
+<table>
+  <tr>
+    <th>Me gusta</th>
+    <th>No me gusta</th>
+  </tr>
+
+<%
+if @tags != nil
+for tag in @tags  %>
+  <tr>
+    <td><%= tag.nombre %></td>
+    <td><%#= tag %></td>
+  </tr>
+<%
+
+
+end
+end%>
+</table>
+
+<br />
+

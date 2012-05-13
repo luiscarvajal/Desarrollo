@@ -1,0 +1,24 @@
+<h1>Comentarios</h1>
+<table border ="1">
+  <tr>
+    <th>Usuario</th>
+    <th>Mensaje</th>
+  </tr>
+<% @users.each do |usuario| %>
+  <tr>
+    <td>Nombre de Usuario: <%= usuario.nombre %></td>
+    <% usuario.comentarios.each do |comentario| %>
+        <%= form_for([usuario,comentario]) do |f| %>
+          <td><%= comentario.mensaje %>
+          
+          <div class="actions">
+            <%= link_to 'Nuevo Comentario', new_user_comentario_path(usuario) %>
+            <%= f.submit %>
+        </div>
+          </td>
+      <% end %>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+<br />

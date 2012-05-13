@@ -21,7 +21,7 @@ class TokensController < ApplicationController
   # GET /tokens/1.json
   def show    
     @token = @user.tokens.find(params[:id])    
-      if ((Time.new - @token.hora_ini.to_time)>10)
+      if ((Time.new - @token.hora_ini.to_time)>300)
         @user.tokens.delete_if { |token| token.id == @token.id}
         @user.save
         @token = Token.new

@@ -1,0 +1,25 @@
+<%= form_for(@misession) do |f| %>
+  <% if @misession.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@misession.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @misession.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nick_name %><br />
+    <%= f.text_field :nick_name %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Iniciar'%>
+  </div>
+<% end %>

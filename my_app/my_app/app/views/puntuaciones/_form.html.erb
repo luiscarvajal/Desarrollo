@@ -1,0 +1,23 @@
+<%= form_for([@user,@comentario,@puntuacione]) do |f| %>
+  <% if @puntuacione.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@puntuacione.errors.count, "error") %> prohibited this puntuacione from being saved:</h2>
+
+      <ul>
+      <% @puntuacione.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :me_gusta %>
+     <%= f.check_box :me_gusta  %>
+    <%= f.label :no_me_gusta %>
+    <%= f.check_box :no_me_gusta %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

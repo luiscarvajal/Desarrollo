@@ -1,8 +1,27 @@
 MyApp::Application.routes.draw do
-  resources :tokens
+  
+  resources :sessions do
+  end
+
+  get 'tags/alltag'
+  post 'comentarios/tagfilter'
+  resources :tags
+
+  get 'comentarios/view'
+  
+  
+  
+  resources :comentarios do
+    resources :tags
+    resources :puntuaciones
+  end
 
   resources :users do
-    resources :comentarios
+	resources :tokens
+    resources :comentarios do
+      resources :tags
+      resources :puntuaciones
+    end
   end
 
   # The priority is based upon order of creation:

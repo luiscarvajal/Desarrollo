@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
 
+    @users = User.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -40,7 +40,19 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    require 'FileUtils'
+
+    #File.copy source_file, target_file
+
     @user = User.new(params[:user])
+
+    directory = "/public"
+    #File.open("/public" params[:foto], "wb") { |f| f.write(upload['datafile'].read) }
+    #FileUtils.copy_file(params[:foto => @tempfile],"/public")
+    #params[:foto => @tempfile]
+
+    #File.copy params[:filename].path(), directory
+    flash[:notice] = "File uploaded"
 
     respond_to do |format|
       if @user.save
@@ -72,8 +84,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.find(params[:id_usuario])
-    @user.destroy
+    @user = User.find(params[:id])
+    @user.delete
 
     respond_to do |format|
       format.html { redirect_to users_url }

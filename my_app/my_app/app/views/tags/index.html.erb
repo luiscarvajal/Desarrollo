@@ -1,0 +1,22 @@
+<h1>Listado tags</h1>
+
+<table>
+  <tr>
+    <th>Me gusta</th>
+    <th>No me gusta</th>
+  </tr>
+
+<% @tags.each do |tag| %>
+  <tr>
+    <td><%= tag.id_tag %></td>
+    <td><%= tag.nombre %></td>
+    <td><%= link_to 'Show', [@user,@comentario,tag] %></td>
+    <td><%= link_to 'Edit', edit_user_comentario_tag_path(@user,@comentario,tag) %></td>
+    <td><%= link_to 'Destroy', [@user,@comentario,tag], confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nuevo Tag', new_user_comentario_tag_path(@user,@comentario) %>

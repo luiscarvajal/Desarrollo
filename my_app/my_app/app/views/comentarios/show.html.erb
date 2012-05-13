@@ -1,28 +1,14 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Id comentario:</b>
-  <%= @comentario.id_comentario %>
-</p>
+<p id="notice"><%= notice %></p>
 
 <p>
   <b>Mensaje:</b>
   <%= @comentario.mensaje %>
+  <b>Hora Publicacion:</b>
+  <%= @comentario.hora_publicacion %>
+  <b>Me gusta:</b><%= @comentario.me_gusta%><b>No me gusta:</b><%= @comentario.no_me_gusta%>
 </p>
 
-<p>
-  <b>Tag:</b>
-  <%= @comentario.tag %>
-</p>
-
-<p>
-  <b>Hora publicacion:</b>
-  <%#= @comentario.hora_publicacion %>
-</p>
-<p>
-  <b>Creador:</b>
-  
-</p>
 
 <%= link_to 'Edit', edit_user_comentario_path(@user,@comentario) %> |
 <%= link_to 'Back', user_comentarios_path %>

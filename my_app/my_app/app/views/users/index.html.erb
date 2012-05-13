@@ -20,7 +20,7 @@
     <td><%= user.nick_name %></td>
     <td><%= user.pais %></td>
     <td><%= user.biografia %></td>   
-    <td> <img alt="FotoPerfil"  src="<%= user.foto %>"/></td>
+    <td> <img alt="FotoPerfil" width="100px" src="<%= user.foto %>"/></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
