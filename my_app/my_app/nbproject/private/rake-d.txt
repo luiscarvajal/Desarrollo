@@ -28,6 +28,7 @@ doc\:clobber_plugins=
 doc\:clobber_rails=
 doc\:guides=
 doc\:plugins=
+doc\:plugins\:paperclip=
 doc\:rails=
 doc\:reapp=
 doc\:rerails=

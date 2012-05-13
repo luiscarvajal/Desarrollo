@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Hora ini:</b>
+  <%= @token.hora_ini %>
+</p>
+<p>
+  <b>Hora Actual:</b>
+  <%= Time.new %>
+</p>
+<p>
+  <b>Dif:</b>
+  <%= Time.new - @token.hora_ini.to_time %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @token.status %>
+</p>
+
+<p>
+  <b>Ip Cliente</b>
+  <%= @token.ip %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_token_path(@user,@token) %> |
+<%= link_to 'Back', user_tokens_path %>

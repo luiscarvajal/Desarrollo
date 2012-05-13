@@ -12,4 +12,6 @@ class User
   key :password, String
   key :foto, String
   many :comentarios
+  many :puntuaciones
+  many :tokens
 end

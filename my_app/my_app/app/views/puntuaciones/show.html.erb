@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Me gusta:</b>
+  <%= @puntuacione.me_gusta %>
+</p>
+
+<p>
+  <b>No me gusta:</b>
+  <%= @puntuacione.no_me_gusta %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_comentario_puntuacione_path(@user,@comentario,@puntuacione) %> |
+<%= link_to 'Back', user_comentario_puntuaciones_path %>

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id:</b>
+  <%= @tag.id_tag %>
+</p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @tag.nombre %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_comentario_tag_path(@user,@comentario,@tag) %> |
+<%= link_to 'Back', user_comentario_tags_path %>
