@@ -1,7 +1,7 @@
 class PuntuacionesController < ApplicationController
 
 
- before_filter :get_user_comentario
+  before_filter :get_user_comentario
 
   def get_user_comentario
     @user = User.find(params[:user_id])
@@ -13,10 +13,25 @@ class PuntuacionesController < ApplicationController
   # GET /puntuaciones.json
   def index
     @puntuaciones = Puntuacione.all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @puntuaciones }
+    if (@puntuaciones.size > 0)
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @puntuaciones }
+        format.xml  { render xml: @puntuaciones }
+      end
+    else
+      @puntuaciones = Puntuacione.new
+      @puntuaciones.mensaje = "No existen Puntuaciones"
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @puntuaciones }
+        format.xml  { render xml: @puntuaciones }
+      end
     end
+    
+  rescue Exception=>e
+    @puntuaciones = Puntuacione.new
+    @puntuaciones.mensaje = "A ocurrido un error"
   end
 
   # GET /puntuaciones/1
@@ -27,6 +42,7 @@ class PuntuacionesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @puntuacione }
+      format.xml { render xml: @puntuacione }
     end
   end
 
@@ -38,6 +54,7 @@ class PuntuacionesController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @puntuacione }
+      format.xml { render xml: @puntuacione}
     end
   end
 
@@ -48,30 +65,47 @@ class PuntuacionesController < ApplicationController
 
   # POST /puntuaciones
   # POST /puntuaciones.json
-  def create
+  def create    
     @user
     @comentario
     @puntuacione = Puntuacione.new(params[:puntuacione])
-    aux=Puntuacione.all
-    flag=false
-    for mipuntuacion in aux
-      if mipuntuacion.user_id == @user.id and mipuntuacion.comentario_id==@comentario.id
+    if (@puntuacione.me_gusta == nil) or (@puntuacione.no_me_gusta == nil)
+      aux=Puntuacione.all
+      flag=false
+      for mipuntuacion in aux
+        if mipuntuacion.user_id == @user.id and mipuntuacion.comentario_id==@comentario.id
           flag=true
-      end
-    end
-    if flag == false
-      @puntuacione.comentario_id=@comentario.id
-      @puntuacione.user_id=@user.id
-      respond_to do |format|
-        if @puntuacione.save
-          format.html { redirect_to [@user,@comentario,@puntuacione], notice: 'Puntuacione was successfully created.' }
-          format.json { render json: [@user,@comentario,@puntuacione], status: :created, location: @puntuacione }
-        else
-          format.html { render action: "new" }
-          format.json { render json: [@user,@comentario,@puntuacione].errors, status: :unprocessable_entity }
         end
       end
-  end
+      if flag == false
+        @puntuacione.comentario_id=@comentario.id
+        @puntuacione.user_id=@user.id
+        respond_to do |format|
+          if @puntuacione.save
+            @puntuacione.mensaje = "El comentario fue Puntuado Con exito"
+            format.html { redirect_to [@user,@comentario,@puntuacione], notice: 'Puntuacione was successfully created.' }
+            format.json { render json: @puntuacione}
+            format.xml { render xml: @puntuacione}
+          else
+            format.html { render action: "new" }
+            format.json { render json: [@user,@comentario,@puntuacione].errors, status: :unprocessable_entity }
+          end
+        end
+      else
+        @puntuaciones = Puntuacione.new
+        @puntuaciones.mensaje = "El usuario ya puntuo ese comentario";
+        respond_to do |format|
+          format.json { render json: @puntuaciones }
+          format.xml { render xml: @puntuaciones }
+        end
+      end
+    else
+      @puntuacione.mensaje = "Solo se permite un puntaje"
+      respond_to do |format|
+        format.json { render json: @puntuacione }
+        format.xml { render xml: @puntuacione }
+      end
+    end
   end
   # PUT /puntuaciones/1
   # PUT /puntuaciones/1.json
@@ -96,7 +130,7 @@ class PuntuacionesController < ApplicationController
     @puntuacione.delete
 
     respond_to do |format|
-      format.html { redirect_to user_comentario_puntuaciones_url }
+      #format.html { redirect_to user_comentario_puntuaciones_url }
       format.json { head :no_content }
     end
   end

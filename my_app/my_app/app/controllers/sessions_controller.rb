@@ -33,12 +33,14 @@ class SessionsController < ApplicationController
     end
 
   end
+
   def show
     @misession = Session.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @misession }
+      format.xml { render xml: @misession }
     end
   end
 end

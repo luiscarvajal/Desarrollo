@@ -4,7 +4,7 @@ class TokensController < ApplicationController
   before_filter :get_user
 
   def get_user
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:user])
   end
 
   # GET /tokens
@@ -106,7 +106,13 @@ class TokensController < ApplicationController
       format.json { render json: @tokenout }
       format.xml { render xml: @tokenout }
     end
-  
+    rescue Exception=>e
+      @token = Token.new
+      @token.mensaje="El id de usuario es invalido"
+      respond_to do |format|
+        format.json { render json: @token }
+        format.xml { render xml: @token }
+      end
   end
 
   # PUT /tokens/1

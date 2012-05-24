@@ -23,10 +23,21 @@ class TagsController < ApplicationController
   # GET /comentarios.json
   def index
     @tags = @comentario.tags
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tags }
+    if (@tags.size > 0)
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @tags }
+      end
+    else
+      @tag = Tag.new
+      @tag.nombre = "No se encuentran tags para ese comentario"
+      #@user.save
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @tag }
+      end
     end
+    
   end
 
   # GET /comentarios/1
@@ -36,6 +47,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @tag }
+      format.xml { render xml: @tag }
     end
   end
   
@@ -70,6 +82,13 @@ class TagsController < ApplicationController
         format.json { render json: [@user,@comentario,@tag], status: :created, location: @tag }
       
     end
+    rescue Exception=>e
+    @tag = Tag.new
+    @tag.nombre = "Usuario o Comentario Inválido"
+    respond_to do |format|
+      #format.html # todos_comentarios.html.erb
+      format.json { render json: @tag }
+    end
   end
   
   # PUT /comentarios/1
@@ -90,15 +109,6 @@ class TagsController < ApplicationController
 
   # DELETE /comentarios/1
   # DELETE /comentarios/1.json
-  def destroy
-    @tag = Tag.find(params[:id])
-    @tag.delete
-
-    respond_to do |format|
-      format.html { redirect_to user_comentario_tag_url }
-      format.json { head :no_content }
-    end
-  end
   def destroy
     @tag = Tag.find(params[:id])
     @tag.delete

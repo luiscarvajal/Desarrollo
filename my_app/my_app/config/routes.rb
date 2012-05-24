@@ -3,6 +3,7 @@ MyApp::Application.routes.draw do
   resources :sessions do
   end
 
+  post 'users/login'
   get 'tags/alltag'
   post 'comentarios/tagfilter'
   resources :tags

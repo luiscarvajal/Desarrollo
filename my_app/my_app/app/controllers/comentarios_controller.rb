@@ -14,6 +14,13 @@ class ComentariosController < ApplicationController
       format.html # todos_comentarios.html.erb
       format.json { render json: @comentarios }
     end
+  rescue Exception=>e
+    @comentario = Comentario.new
+    @comentario.mensaje = "Usuario Inválido"
+    respond_to do |format|
+      format.html # todos_comentarios.html.erb
+      format.json { render json: @comentario }
+    end
   end
   def tagfilter
     #@users= User.all
@@ -28,9 +35,26 @@ class ComentariosController < ApplicationController
   # GET /comentarios.json
   def index
     @comentarios = @user.comentarios
+    if (@comentarios.size > 0)
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @comentarios }
+        format.xml { render xml: @comentarios }
+      end
+    else
+      @comentario = Comentario.new
+      @comentario.mensaje = "No existen comentarios"
+      respond_to do |format|
+        format.html # todos_comentarios.html.erb
+        format.json { render json: @comentario }
+      end
+    end
+    rescue Exception=>e
+    @comentario = Comentario.new
+    @comentario.mensaje = "Usuario Inválido"
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @comentarios }
+      format.html # todos_comentarios.html.erb
+      format.json { render json: @comentario }
     end
   end
 
@@ -44,6 +68,7 @@ class ComentariosController < ApplicationController
       respond_to do |format|
         format.html # todos_comentarios.html.erb
         format.json { render json: @comentarios }
+        format.xml { render xml: @comentario }
       end
     end
 
@@ -63,6 +88,14 @@ class ComentariosController < ApplicationController
     @comentario.save
     respond_to do |format|
       format.html # show.html.erb
+      format.json { render json: @comentario }
+      format.xml { render xml: @comentario }
+    end
+    rescue Exception=>e
+    @comentario = Comentario.new
+    @comentario.mensaje = "Usuario o Comentario Inválido"
+    respond_to do |format|
+      format.html # todos_comentarios.html.erb
       format.json { render json: @comentario }
     end
   end
@@ -98,10 +131,16 @@ class ComentariosController < ApplicationController
       format.html { redirect_to [@user, @comentario],
         notice: 'El comentario a sido creado.'} # new.html.erb
 
-      format.json { render json: [@user, @comentario],
-        status: :created,
-      location: [@user, @comentario]}
+      format.json { render json: @comentario}
+      format.xml { render xml: @comentario}
 
+    end
+  rescue Exception=>e
+    @comentario = Comentario.new
+    @comentario.mensaje = "Usuario Inválido"
+    respond_to do |format|
+      format.html # todos_comentarios.html.erb
+      format.json { render json: @comentario }
     end
   end
 
@@ -118,6 +157,13 @@ class ComentariosController < ApplicationController
         format.json { render json: @comentario.errors, status: :unprocessable_entity }
       end
     end
+  rescue Exception=>e
+    @comentario = Comentario.new
+    @comentario.mensaje = "Usuario o Comentario Inválido"
+    respond_to do |format|
+      format.html # todos_comentarios.html.erb
+      format.json { render json: @comentario }
+    end
   end
 
   # DELETE /comentarios/1
@@ -125,11 +171,20 @@ class ComentariosController < ApplicationController
   def destroy
     @comentario = @user.comentarios.find(params[:id])
     @comentario.destroy
+    @comentariout = Comentario.new
+    @comentariout.mensaje = "Comentario Eliminado con exito"
     #@user.comentarios.delete(@comentario)
     #@user.save
     respond_to do |format|
-      format.html { redirect_to user_comentarios_url }
-      format.json { head :no_content }
+      #format.html { redirect_to user_comentarios_url }
+      format.json { @comentariout}
+    end
+  rescue Exception=>e
+    @comentario = Comentario.new
+    @comentario.mensaje = "Usuario o Comentario Inválido"
+    respond_to do |format|
+      #format.html # todos_comentarios.html.erb
+      format.json { render json: @comentario }
     end
   end
 

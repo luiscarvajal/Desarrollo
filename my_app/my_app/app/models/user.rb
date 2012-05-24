@@ -10,7 +10,9 @@ class User
   key :pais, String
   key :biografia, String
   key :password, String
+  key :password_confirmacion, String
   key :foto, String
+  key :mensaje, String
   many :comentarios
   many :puntuaciones
   many :tokens
