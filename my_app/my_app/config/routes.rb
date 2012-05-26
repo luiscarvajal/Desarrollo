@@ -4,13 +4,12 @@ MyApp::Application.routes.draw do
   end
 
   post 'users/login'
+  
   get 'tags/alltag'
   post 'comentarios/tagfilter'
   resources :tags
 
   get 'comentarios/view'
-  
-  
   
   resources :comentarios do
     resources :tags

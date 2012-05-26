@@ -22,7 +22,7 @@ module MyApp
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
+    # config.autoload_paths += %W(#{config.root}/libs)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -41,6 +41,8 @@ module MyApp
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
+
+
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

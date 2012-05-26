@@ -1,6 +1,5 @@
 class TokensController < ApplicationController
 
-
   before_filter :get_user
 
   def get_user
@@ -50,20 +49,6 @@ class TokensController < ApplicationController
         end    
   end
 
-  # GET /tokens/new
-  # GET /tokens/new.json
-  def new
-    @token = Token.new
-    @token.status = 'activo'
-    #@token.status = request.remote_ip
-    @token.hora_ini = Time.new.to_s
-    @token.ip = request.remote_ip
-    respond_to do |format|
-      format.xml { render xml:@token}
-      format.html # new.html.erb
-      format.json { render json: @token }
-    end
-  end
 
   # GET /tokens/1/edit
   def edit
@@ -72,7 +57,10 @@ class TokensController < ApplicationController
 
   # POST /tokens
   # POST /tokens.json
-  def create
+ 
+
+  def solicitar_token
+    @user = params[:user]
     @mitoken = Token.new
     @mitoken.status = 'activo'
     @mitoken.hora_ini = Time.new.to_s
@@ -93,7 +81,7 @@ class TokensController < ApplicationController
         end
       end
     end
-    
+
     if flag == true
       @user.tokens.push(@mitoken)
       @tokenout = @mitoken
