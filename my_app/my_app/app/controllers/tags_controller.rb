@@ -29,13 +29,7 @@ class TagsController < ApplicationController
         format.json { render json: @tags }
       end
     else
-      @tag = Tag.new
-      @tag.nombre = "No se encuentran tags para ese comentario"
-      #@user.save
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @tag }
-      end
+      raise Exception.new("no se encuentran tags para ese comentario")
     end
     
   end

@@ -8,11 +8,33 @@ class PuntuacionesController < ApplicationController
     @comentario = Comentario.find(params[:comentario_id])
   end
 
+  def lista_puntuaciones
+    @puntuaciones = Puntuacione.all
+    if (@puntuaciones.size > 0)
+      respond_to do |format|        
+        format.json { render json: @puntuaciones }
+        format.xml  { render xml: @puntuaciones }
+      end
+    else
+      @puntuaciones = Puntuacione.new
+      @puntuaciones.mensaje = "No existen Puntuaciones"
+      respond_to do |format|        
+        format.json { render json: @puntuaciones }
+        format.xml  { render xml: @puntuaciones }
+      end
+    end
+
+  rescue Exception=>e
+    @puntuaciones = Puntuacione.new
+    @puntuaciones.mensaje = "A ocurrido un error"
+  end
 
   # GET /puntuaciones
   # GET /puntuaciones.json
   def index
-    @puntuaciones = Puntuacione.all
+#    @puntuaciones = Puntuacione.all
+    @puntuaciones = Puntuacione.where(:comentario_id => @comentario.id)
+
     if (@puntuaciones.size > 0)
       respond_to do |format|
         format.html # index.html.erb
@@ -68,8 +90,12 @@ class PuntuacionesController < ApplicationController
   def create    
     @user
     @comentario
+    valida_session(@user,request.remote_ip)
     @puntuacione = Puntuacione.new(params[:puntuacione])
-    if (@puntuacione.me_gusta == nil) or (@puntuacione.no_me_gusta == nil)
+    if (@puntuacione.me_gusta != nil) and (@puntuacione.no_me_gusta != nil)
+      raise Exception.new("No se puede tener mas de un puntaje")
+    end
+
       aux=Puntuacione.all
       flag=false
       for mipuntuacion in aux
@@ -77,7 +103,10 @@ class PuntuacionesController < ApplicationController
           flag=true
         end
       end
-      if flag == false
+      if flag == true
+        raise Exception.new("El usuario ya puntuo ese comentario")
+      end
+
         @puntuacione.comentario_id=@comentario.id
         @puntuacione.user_id=@user.id
         respond_to do |format|
@@ -87,25 +116,9 @@ class PuntuacionesController < ApplicationController
             format.json { render json: @puntuacione}
             format.xml { render xml: @puntuacione}
           else
-            format.html { render action: "new" }
-            format.json { render json: [@user,@comentario,@puntuacione].errors, status: :unprocessable_entity }
+            raise Exception.new([@user,@comentario,@puntuacione].errors)
           end
         end
-      else
-        @puntuaciones = Puntuacione.new
-        @puntuaciones.mensaje = "El usuario ya puntuo ese comentario";
-        respond_to do |format|
-          format.json { render json: @puntuaciones }
-          format.xml { render xml: @puntuaciones }
-        end
-      end
-    else
-      @puntuacione.mensaje = "Solo se permite un puntaje"
-      respond_to do |format|
-        format.json { render json: @puntuacione }
-        format.xml { render xml: @puntuacione }
-      end
-    end
   end
   # PUT /puntuaciones/1
   # PUT /puntuaciones/1.json
@@ -126,12 +139,36 @@ class PuntuacionesController < ApplicationController
   # DELETE /puntuaciones/1
   # DELETE /puntuaciones/1.json
   def destroy
+    valida_session(@user,request.remote_ip)
     @puntuacione = Puntuacione.find(params[:id])
-    @puntuacione.delete
-
+    if @puntuacione == nil
+      raise Exception.new("id puntuacion incorrecto")
+    end
     respond_to do |format|
-      #format.html { redirect_to user_comentario_puntuaciones_url }
-      format.json { head :no_content }
+      if @puntuacione.delete
+        #format.html { redirect_to user_comentario_puntuaciones_url }
+        format.json { render json: @puntuacione }
+        format.json { render json: @puntuacione }
+      else
+        raise Exception.new("a ocurrido un error eliminando la puntuacion")
+      end
     end
   end
+
+  def valida_session(usuario, ip)
+    @token
+    for token_i in usuario.tokens
+      if token_i.ip == ip
+         @token = token_i
+      end
+    end
+    if ((Time.new - @token.hora_ini.to_time)>300)
+      usuario.tokens.delete_if { |token| token.id == @token.id}
+      usuario.save
+      raise Exceptions::BusinessException.new("El token se ha vencido")
+    end
+  rescue Exception=>be
+    raise Exceptions::BusinessException.new("No hay token Vigente")
+ end
+
 end

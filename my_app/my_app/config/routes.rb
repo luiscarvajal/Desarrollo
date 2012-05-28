@@ -5,6 +5,8 @@ MyApp::Application.routes.draw do
 
   post 'users/login'
   
+  get 'puntuaciones/lista_puntuaciones'
+
   get 'tags/alltag'
   post 'comentarios/tagfilter'
   resources :tags
