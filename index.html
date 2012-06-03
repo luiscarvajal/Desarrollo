@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Desarrollo : Proyecto Desarrollo" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Desarrollo</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/luiscarvajal/Desarrollo">View on GitHub</a>
+
+          <h1 id="project_title">Desarrollo</h1>
+          <h2 id="project_tagline">Proyecto Desarrollo</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/luiscarvajal/Desarrollo/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/luiscarvajal/Desarrollo/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Bienvenidos al Sistema XpresatE.</h3>
+
+<p>XpresatE es una plataforma orientada a servicios que utiliza un modelo de base de datos no relacional (NoSQL,) denominado <a href="http://www.mongodb.org/">Mongo DB</a>y desarrollada bajo el ambiente del framework  <a href="http://rubyonrails.org/">Ruby on Rails</a>. Esta plataforma permite la gestión (envío y recepción) de mensajes con contenido multimedia, al igual que el uso de plataformas o clientes desarrollados por terceros para evaluar el correcto funcionamiento de los servicios implementados.</p>
+
+<p>Es importante destacar que la plataforma cuenta los siguientes requerimientos funcionales:</p>
+
+<ul>
+<li><p><strong>Autorización de operaciones:</strong> permite realizar las operaciones de modificación, eliminación o creación de nuevos registros mediante las reglas de negocio implementadas y la generación de Tokens de seguridad, los cuales deben ser generados por dos elementos: usuario y clave de acceso.</p></li>
+<li><p><strong>Publicación de Comentarios:</strong> facilita a los usuarios registrados la capacidad de poder publicar mensajes o comentarios de longitud indefinida. Dichos comentarios pueden estar identificados por un tag para identificar dichos mensajes por un tópico en especifico. Estos comentarios pueden adjuntar información multimedia o de cualquier otro formato. A su vez facilita a los usuarios dar respuestas sobre otros comentarios e indicar si le gusta o no y poder totalizar esos votos. El usuario puede indicar si el comentario que genera puede o no tener respuestas. Es importante destacar que ciertas operaciones realizadas a los comentarios, requieren la generación de tonkens de seguridad para poder ser ejecutada.</p></li>
+</ul><p>A continuación se detallan los pasos que usted debe seguir:</p>
+
+<h3>1- Instalar Ruby on Rails</h3>
+
+<ul>
+<li>Descargue la versi?n de Ruby 1.9.3-p0 y el DevKit-tdm-32-4.5.2-20110712-1620-sfx.exe, ubicados en el siguiente link [Descar Ruby on Rails](<a href="http://rubyinstaller.org/downloads/archives">http://rubyinstaller.org/downloads/archives</a>, en la imagen se indica que archivos descargarse. Ejecute primero el instalador de Ruby luego el de DevKit.</li>
+<li><p>Terminada la instalaci?n abrimos la linea de comandos de Ruby  (Start Command Prompt with Ruby)
+<code>gem update --system</code></p></li>
+<li><p>Una vez instalado el Ruby y con ayuda del RubyGems, podemos proceder a instalar el Framework Rails que se trata de una ?gema?, nuevamente en la l?nea de comandos escribimos: <code>gem install rails</code></p></li>
+<li>
+<p>Cree su primera aplicaci?n de la siguiente forma</p>
+
+<pre><code>rails new demo
+cd demo
+rails generate scaffold persona nombre:string tlf:integer
+rake db:create
+rake db:migrate
+rails server
+</code></pre>
+
+<h3>2- Instalar Mongo DB</h3>
+</li>
+<li><p>Descargar la version2.0.5 de Mongo DB en siguiente link <a href="http://www.mongodb.org/downloads">Descargar Mongo DB</a> y de acuerdo al sistema operativo que posea su equipo.</p></li>
+<li><p>Para instalar Mongo DB en Ruby on Rails siga los pasos del siguiente link: <a href="http://www.mongodb.org/display/DOCS/Ruby+Language+Center">Mongo DB en Ruby</a>.</p></li>
+<li><p>Se facilita este sencillo manual sobre los comandos b?sicos utilizados en Mongo DB para la generaci?n o creaci?n de las bases de datos. <a href="http://blog.jam.net.ve/2011/01/09/usos-basicos-de-mongodb-console/">Usos b?sicos Mongo DB</a>  </p></li>
+</ul><pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
+<h3>Metodos Disponibles en la aplicacion:</h3>
+
+<h2>Users</h2>
+
+<h1>Listar: GET &gt; <code>/Users.xml</code>
+</h1>
+
+<p>Retorna todos los usuarios registrados en el sistema.
+Ejemplo de xml de respond:</p>
+
+<pre><code>&lt;users type="array"&gt;
+   &lt;user&gt;
+      &lt;apellido&gt;Carvajal&lt;/apellido&gt;
+      &lt;biografia&gt;biografia&lt;/biografia&gt;
+      &lt;correo&gt;lcarvajal@gmail.com&lt;/correo&gt;
+      &lt;foto&gt;.&lt;/foto&gt;
+      &lt;id&gt;4fcac0aaca2f25210c00009c&lt;/id&gt;
+      &lt;nick-name&gt;123&lt;/nick-name&gt;
+      &lt;nombre&gt;Luis&lt;/nombre&gt;
+      &lt;pais&gt;vzla&lt;/pais&gt;
+      &lt;password&gt;123&lt;/password&gt;
+   &lt;/user&gt;
+   &lt;user&gt;
+      &lt;apellido&gt;Sanchez&lt;/apellido&gt;
+      &lt;biografia&gt;biografia&lt;/biografia&gt;
+      &lt;correo&gt;asanchez@gmail.com&lt;/correo&gt;
+      &lt;foto&gt;.&lt;/foto&gt;
+      &lt;id&gt;4fcac0bdca2f25210c00009e&lt;/id&gt;
+      &lt;nick-name&gt;1234&lt;/nick-name&gt;
+      &lt;nombre&gt;Andres&lt;/nombre&gt;
+      &lt;pais&gt;vzla&lt;/pais&gt;
+      &lt;password&gt;123&lt;/password&gt;         
+   &lt;/user&gt;
+&lt;/users&gt;
+</code></pre>
+
+<h1>Crear: POST &gt; <code>/Users</code>
+</h1>
+
+<p>Registra un usuario nuevo en el sistema.</p>
+
+<p>Ejemplo de xml request:</p>
+
+<pre><code>&lt;user&gt;
+&lt;nombre&gt;Luis&lt;/nombre&gt;
+&lt;apellido&gt;Carvajal&lt;/apellido&gt;
+&lt;nick-name&gt;lcarvajal&lt;/nick-name&gt;
+&lt;password&gt;123&lt;/password&gt;
+&lt;biografia&gt;biografia&lt;/biografia&gt;
+&lt;correo&gt;lcarvajal@gmail.com&lt;/correo&gt;
+&lt;pais&gt;vzla&lt;/pais&gt;
+&lt;foto&gt;&lt;/foto&gt;
+&lt;/user&gt;
+</code></pre>
+
+<p>Ejemplo de xml de respond:</p>
+
+<pre><code>&lt;user&gt;
+    &lt;apellido&gt;Carvajal&lt;/apellido&gt;
+    &lt;biografia&gt;biografia&lt;/biografia&gt;
+    &lt;correo&gt;lcarvajal@gmail.com&lt;/correo&gt;
+    &lt;id&gt;4fcac0bdca2f25210c00009e&lt;/id&gt;
+    &lt;nick-name&gt;lcarvajal&lt;/nick-name&gt;
+    &lt;nombre&gt;Luis&lt;/nombre&gt;
+    &lt;pais&gt;vzla&lt;/pais&gt;
+    &lt;password&gt;123&lt;/password&gt;
+    &lt;foto&gt;&lt;/foto&gt;
+    &lt;tokens type="array"/&gt;
+&lt;/user&gt;
+</code></pre>
+
+<h1>Update: PUT &gt; <code>/Users/:id_usuario</code>
+</h1>
+
+<p>Se modifica un usuario existente en el sistema
+Ejemplo de xml request:</p>
+
+<pre><code>&lt;user&gt;
+    &lt;nombre&gt;Luis&lt;/nombre&gt;
+    &lt;apellido&gt;Carvajal&lt;/apellido&gt;
+    &lt;nick-name&gt;lcarvajal&lt;/nick-name&gt;
+    &lt;password&gt;123&lt;/password&gt;
+    &lt;biografia&gt;biografia&lt;/biografia&gt;
+    &lt;correo&gt;lcarvajal@gmail.com&lt;/correo&gt;
+    &lt;pais&gt;vzla&lt;/pais&gt;
+    &lt;foto&gt;&lt;/foto&gt;
+&lt;/user&gt;
+</code></pre>
+
+<p>Ejemplo de xml respond:</p>
+
+<pre><code>&lt;user&gt;
+   &lt;apellido&gt;Apellido Modificado&lt;/apellido&gt;
+   &lt;biografia&gt;biografia modificada&lt;/biografia&gt;
+   &lt;correo&gt;nmodificado@gmail.com&lt;/correo&gt;
+   &lt;foto&gt;.&lt;/foto&gt;
+   &lt;id&gt;4fcac0bdca2f25210c00009e&lt;/id&gt;
+   &lt;nick-name&gt;lcarvajal&lt;/nick-name&gt;
+   &lt;nombre&gt;Nombre Modificado&lt;/nombre&gt;
+   &lt;pais&gt;vzla&lt;/pais&gt;
+   &lt;password&gt;123&lt;/password&gt;
+&lt;/user&gt;
+</code></pre>
+
+<h1>Delete: DELETE &gt; <code>/Users/:id_usuario</code>
+</h1>
+
+<p>permite eliminar el usuario cuyo id corresponda con 
+el :id_usuario pasado como parametro
+Ejemplo de xml de respond</p>
+
+<pre><code>&lt;mensaje&gt;
+   &lt;id&gt;4fcb6be5ca2f251c0c000ddc&lt;/id&gt;
+   &lt;salida&gt;Usuario Eliminado con exito&lt;/salida&gt;
+&lt;/mensaje&gt;
+</code></pre>
+
+<h1>Show: GET &gt; <code>/Users/:id_usuario.xml</code>
+</h1>
+
+<p>permite ver todos los detalles de el usuario con el id pasado como parametro
+Ejemplo de xml de respond</p>
+
+<pre><code>&lt;user&gt;
+   &lt;apellido&gt;Carvajal&lt;/apellido&gt;
+   &lt;biografia&gt;biografia&lt;/biografia&gt;
+   &lt;correo&gt;asanchez@gmail.com&lt;/correo&gt;
+   &lt;foto&gt;.&lt;/foto&gt;
+   &lt;id&gt;4fcb6beaca2f251c0c000dde&lt;/id&gt;
+   &lt;nick-name&gt;123&lt;/nick-name&gt;
+   &lt;nombre&gt;Luis&lt;/nombre&gt;
+   &lt;pais&gt;vzla&lt;/pais&gt;
+   &lt;password&gt;123&lt;/password&gt;
+&lt;/user&gt;
+</code></pre>
+
+<h1>Login: POST &gt; <code>/Users/login</code>
+</h1>
+
+<p>permite iniciar sesion en el sistema, recibe un objeto con el nick_name y el password
+retorna un usuario con los tokens asociados a ese usuario
+Ejemplo de request</p>
+
+<pre><code>&lt;session&gt;
+    &lt;nick_name&gt;123&lt;/nick_name&gt;
+    &lt;password&gt;123&lt;/password&gt;
+&lt;/session&gt;
+</code></pre>
+
+<p>Ejemplo de respond</p>
+
+<pre><code>&lt;user&gt;
+   &lt;apellido&gt;Carvajal&lt;/apellido&gt;
+   &lt;biografia&gt;biografia&lt;/biografia&gt;
+   &lt;correo&gt;asanchez@gmail.com&lt;/correo&gt;
+   &lt;foto&gt;.&lt;/foto&gt;
+   &lt;id&gt;4fcb6beaca2f251c0c000dde&lt;/id&gt;
+   &lt;nick-name&gt;123&lt;/nick-name&gt;
+   &lt;nombre&gt;Luis&lt;/nombre&gt;
+   &lt;pais&gt;vzla&lt;/pais&gt;
+   &lt;password&gt;123&lt;/password&gt;
+   &lt;tokens type="array"&gt;
+      &lt;token&gt;
+        &lt;hora-ini&gt;2012-06-03 09:36:05 -0430&lt;/hora-ini&gt;
+        &lt;id&gt;4fcb6f4dca2f251c0c000e8c&lt;/id&gt;
+        &lt;ip&gt;192.168.1.116&lt;/ip&gt;
+        &lt;mensaje&gt;El token solicitado es:4fcb6f4dca2f251c0c000e8c&lt;/mensaje&gt;
+        &lt;status&gt;activo&lt;/status&gt;
+      &lt;/token&gt;
+      &lt;token&gt;
+        &lt;hora-ini&gt;2012-06-03 09:40:17 -0430&lt;/hora-ini&gt;
+        &lt;id&gt;4fcb7049ca2f251c0c000ec3&lt;/id&gt;
+        &lt;ip&gt;127.0.0.1&lt;/ip&gt;
+        &lt;mensaje&gt;El token solicitado es:4fcb7049ca2f251c0c000ec3&lt;/mensaje&gt;
+        &lt;status&gt;activo&lt;/status&gt;
+      &lt;/token&gt;
+   &lt;/tokens&gt;
+&lt;/user&gt;
+</code></pre>
+
+<h2>Comentarios</h2>
+
+<h1>Listar: GET &gt; <code>/Users/:user_id/comentarios.xml</code>
+</h1>
+
+<p>permite listar todos los comentarios asociados al usuario pasado como parametro
+Ejemplo de Respond:</p>
+
+<pre><code>&lt;comentarios type="array"&gt;
+   &lt;comentario&gt;
+      &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+      &lt;comentario-id nil="true"/&gt;
+      &lt;hora-publicacion&gt;2012-06-03 09:33:09 -0430&lt;/hora-publicacion&gt;
+      &lt;id&gt;4fcb6e9dca2f251c0c000e6f&lt;/id&gt;
+      &lt;mensaje&gt;esto es el primer comentario Usuario: nombre&lt;/mensaje&gt;
+      &lt;tag-ids type="array"/&gt;
+      &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+   &lt;/comentario&gt;
+   &lt;comentario&gt;
+      &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+      &lt;comentario-id nil="true"/&gt;
+      &lt;hora-publicacion&gt;2012-06-03 09:36:55 -0430&lt;/hora-publicacion&gt;
+      &lt;id&gt;4fcb6f72083611020c000f38&lt;/id&gt;
+      &lt;mensaje&gt;hola  &amp;amp;nbsp;&amp;lt;a href="http://www.youtube.com/watch?v=kffacxfA7G4"&gt;http://www.youtube.com/watch?v=kffacxfA7G4&amp;lt;/a&gt;&amp;amp;nbsp;&amp;lt;br&gt;&lt;/mensaje&gt;
+      &lt;tag-ids type="array"/&gt;
+      &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+   &lt;/comentario&gt;
+&lt;/comentarios&gt;
+</code></pre>
+
+<p>Si el atributo admite-respuesta es true el comentario admite respuesta de lo contrario no esta permitido</p>
+
+<h1>Crear: POST &gt; <code>/Users/:user_id/comentarios</code>
+</h1>
+
+<p>permite crear un comentario asociado al usuario indicado por el parametro :user_id
+Ejemplo de request:</p>
+
+<pre><code>&lt;comentario&gt;
+   &lt;admite_respuesta&gt;true&lt;/admite_respuesta&gt;
+   &lt;mensaje&gt;esto es el primer comentario Usuario: nombre&lt;/mensaje&gt;
+&lt;/comentario&gt;
+</code></pre>
+
+<p>Ejemplo de respond:</p>
+
+<pre><code>&lt;comentario&gt;
+   &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+   &lt;comentario-id nil="true"/&gt;
+   &lt;hora-publicacion&gt;2012-06-03 09:33:09 -0430&lt;/hora-publicacion&gt;
+   &lt;id&gt;4fcb6e9dca2f251c0c000e6f&lt;/id&gt;
+   &lt;mensaje&gt;esto es el primer comentario Usuario: nombre&lt;/mensaje&gt;
+   &lt;tag-ids type="array"/&gt;
+   &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+&lt;/comentario&gt;
+</code></pre>
+
+<h1>Modificar: PUT &gt; <code>/Users/:user_id/comentarios/:comentario_id</code>
+</h1>
+
+<p>Permite modificar el comentarios dado por el parametro :comentario_id 
+perteneciente al usuario :user_id
+Ejemplo de request:</p>
+
+<pre><code>&lt;comentario&gt;
+   &lt;mensaje&gt;esto es el primer comentario modificado Usuario: nombre&lt;/mensaje&gt;
+&lt;/comentario&gt;
+</code></pre>
+
+<p>Ejemplo de respond:</p>
+
+<pre><code>&lt;comentario&gt;
+   &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+   &lt;comentario-id nil="true"/&gt;
+   &lt;hora-publicacion&gt;2012-06-02 21:13:06 -0430&lt;/hora-publicacion&gt;
+   &lt;id&gt;4fcac12aca2f25210c0000b2&lt;/id&gt;
+   &lt;mensaje&gt;esto es el sexto comentario Usuario: nombre&lt;/mensaje&gt;
+   &lt;tag-ids type="array"/&gt;
+   &lt;user-id&gt;4fcac0aaca2f25210c00009c&lt;/user-id&gt;
+&lt;/comentario&gt;
+</code></pre>
+
+<h1>Eliminar: DELETE &gt; <code>/users/:user_id/comentarios/:comentario_id</code>
+</h1>
+
+<p>Permite eliminar un comentario junto con todas las respuestas a ese comentario
+Ejemplo de respond:</p>
+
+<pre><code>&lt;mensaje&gt;
+   &lt;id&gt;4fcad95bca2f251c0c0004eb&lt;/id&gt;
+   &lt;salida&gt;Comentario Eliminado con exito&lt;/salida&gt;
+&lt;/mensaje&gt;
+</code></pre>
+
+<h1>Show: GET &gt; <code>/users/:user_id/comentarios/:comentario_id.xml</code>
+</h1>
+
+<p>Muestra toda la informacion de el comentario dado
+Ejemplo de respond:</p>
+
+<pre><code>&lt;comentario&gt;
+   &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+   &lt;comentario-id nil="true"/&gt;
+   &lt;hora-publicacion&gt;2012-06-03 09:33:09 -0430&lt;/hora-publicacion&gt;
+   &lt;id&gt;4fcb6e9dca2f251c0c000e6f&lt;/id&gt;
+   &lt;me-gusta&gt;0&lt;/me-gusta&gt;
+   &lt;mensaje&gt;esto es el primer comentario Usuario: nombre&lt;/mensaje&gt;
+   &lt;no-me-gusta&gt;0&lt;/no-me-gusta&gt;
+   &lt;tag-ids type="array"/&gt;
+   &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+&lt;/comentario&gt;
+</code></pre>
+
+<h1>Comentarios Hijos: GET &gt; <code>/comentarios/:comentario_id/get_comentarios_hijos</code>
+</h1>
+
+<p>Muestra todas las respuestas del comentario pasado en el parametro :comentario_id
+Ejemplo de respond:</p>
+
+<pre><code>&lt;comentarios type="array"&gt;
+   &lt;comentario&gt;
+      &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+      &lt;comentario-id&gt;4fcb6e9dca2f251c0c000e6f&lt;/comentario-id&gt;
+      &lt;hora-publicacion&gt;2012-06-03 10:14:45 -0430&lt;/hora-publicacion&gt;
+      &lt;id&gt;4fcb785dca2f251c0c000fde&lt;/id&gt;
+      &lt;mensaje&gt;respuesta de respuesta de un comentario&lt;/mensaje&gt;
+      &lt;tag-ids type="array"/&gt;
+      &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+   &lt;/comentario&gt;
+&lt;/comentarios&gt;
+</code></pre>
+
+<h1>Todos los Comentarios: GET &gt; <code>/comentarios/view</code>
+</h1>
+
+<p>Muestra todos los comentarios hechos en el sistema
+Ejemplo de respond:</p>
+
+<pre><code>&lt;comentarios type="array"&gt;
+   &lt;comentario&gt;
+      &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+      &lt;comentario-id nil="true"/&gt;
+      &lt;hora-publicacion&gt;2012-06-03 09:36:55 -0430&lt;/hora-publicacion&gt;
+      &lt;id&gt;4fcb6f72083611020c000f38&lt;/id&gt;
+      &lt;mensaje&gt;hola  &amp;amp;nbsp;&amp;lt;a href="http://www.youtube.com/watch?v=kffacxfA7G4"&gt;http://www.youtube.com/watch?v=kffacxfA7G4&amp;lt;/a&gt;&amp;amp;nbsp;&amp;lt;br&gt;&lt;/mensaje&gt;
+      &lt;tag-ids type="array"/&gt;
+      &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+   &lt;/comentario&gt;
+   &lt;comentario&gt;
+      &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+      &lt;comentario-id nil="true"/&gt;
+      &lt;hora-publicacion&gt;2012-06-03 09:33:09 -0430&lt;/hora-publicacion&gt;
+      &lt;id&gt;4fcb6e9dca2f251c0c000e6f&lt;/id&gt;
+      &lt;me-gusta&gt;0&lt;/me-gusta&gt;
+      &lt;mensaje&gt;esto es el primer comentario Usuario: nombre&lt;/mensaje&gt;
+      &lt;no-me-gusta&gt;0&lt;/no-me-gusta&gt;
+      &lt;tag-ids type="array"/&gt;
+      &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+   &lt;/comentario&gt;
+&lt;/comentarios&gt;
+</code></pre>
+
+<h1>Respuesta de un Comentario: POST &gt; <code>/users/:user_id/comentarios/:comentario_id/respuesta</code>
+</h1>
+
+<p>permite responder un comentario 
+Ejemplo de request:</p>
+
+<pre><code>&lt;comentario&gt;
+   &lt;mensaje&gt;respuesta de respuesta de un comentario&lt;/mensaje&gt;
+&lt;/comentario&gt;
+</code></pre>
+
+<p>Ejemplo de respond:</p>
+
+<pre><code>&lt;comentario&gt;
+   &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+   &lt;comentario-id nil="true"/&gt;
+   &lt;hora-publicacion&gt;2012-06-03 09:33:09 -0430&lt;/hora-publicacion&gt;
+   &lt;id&gt;4fcb6e9dca2f251c0c000e6f&lt;/id&gt;
+   &lt;me-gusta&gt;0&lt;/me-gusta&gt;
+   &lt;mensaje&gt;esto es el primer comentario Usuario: nombre&lt;/mensaje&gt;
+   &lt;no-me-gusta&gt;0&lt;/no-me-gusta&gt;
+   &lt;tag-ids type="array"/&gt;
+   &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+&lt;/comentario&gt;
+</code></pre>
+
+<h2>Puntuaciones</h2>
+
+<h1>lista todas las puntuaciones hechas en el sistema: GET &gt; <code>/puntuaciones/lista_puntuaciones</code>
+</h1>
+
+<p>permite listar todas las puntuaciones hechas sobres los comentarios en el sistema
+Ejemplo de respond:</p>
+
+<pre><code>&lt;puntuaciones type="array"&gt;
+   &lt;puntuacione&gt;
+      &lt;comentario-id&gt;4fcb6f72083611020c000f38&lt;/comentario-id&gt;
+      &lt;id&gt;4fcb7c2eca2f251c0c001096&lt;/id&gt;
+      &lt;no-me-gusta type="integer"&gt;1&lt;/no-me-gusta&gt;
+      &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+   &lt;/puntuacione&gt;
+&lt;/puntuaciones&gt;
+</code></pre>
+
+<h1>Nueva Puntuacion: POST &gt; <code>/users/:user_id/comentarios/:comentario_id/puntuaciones</code>
+</h1>
+
+<p>permite crear una puntuacion nueva sobre un comentario
+Ejemplo de request (para el caso de no-me-gusta):</p>
+
+<pre><code>&lt;puntuacione&gt;
+   &lt;no-me-gusta type="integer"&gt;1&lt;/no-me-gusta&gt;
+&lt;/puntuacione&gt;
+</code></pre>
+
+<p>Ejemplo de request (para el caso de me-gusta):</p>
+
+<pre><code>&lt;puntuacione&gt;
+   &lt;me-gusta type="integer"&gt;1&lt;/me-gusta&gt;
+&lt;/puntuacione&gt;
+</code></pre>
+
+<h1>Eliminar una puntuacion: DELETE &gt; <code>/users/:user_id/comentarios/:comentario_id/puntuaciones/:puntuacion_id</code>
+</h1>
+
+<p>permite eliminar una puntuacion sobre un comentario
+Ejemplo de respond:</p>
+
+<pre><code>&lt;puntuacione&gt;
+   &lt;comentario-id&gt;4fcb6f72083611020c000f38&lt;/comentario-id&gt;
+   &lt;id&gt;4fcb7cb4ca2f251c0c0010b8&lt;/id&gt;
+   &lt;no-me-gusta type="integer"&gt;1&lt;/no-me-gusta&gt;
+   &lt;user-id&gt;4fcb6bf8ca2f251c0c000de0&lt;/user-id&gt;
+&lt;/puntuacione&gt;
+</code></pre>
+
+<h1>listar puntuaciones sobre un comentario: GET &gt; <code>/users/:user_is/comentarios/:comentario_id/puntuaciones</code>
+</h1>
+
+<p>permite listar las puntuaciones hechas sobre un comentario
+Ejemplo de respond:</p>
+
+<pre><code>&lt;puntuaciones type="array"&gt;
+   &lt;puntuacione&gt;
+      &lt;comentario-id&gt;4fcb6f72083611020c000f38&lt;/comentario-id&gt;
+      &lt;id&gt;4fcb7c2eca2f251c0c001096&lt;/id&gt;
+      &lt;no-me-gusta type="integer"&gt;1&lt;/no-me-gusta&gt;
+      &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+   &lt;/puntuacione&gt;
+&lt;/puntuaciones&gt;
+</code></pre>
+
+<h2>Tags</h2>
+
+<h1>listar Tags: GET &gt; <code>/users/:user_id/comentarios/:comentario_id/tags</code>
+</h1>
+
+<p>permite listar los tags asociados a un comentario
+Ejemplo de respond</p>
+
+<pre><code>&lt;tags type="array"&gt;
+   &lt;tag&gt;
+      &lt;comentario-ids type="array"&gt;
+         &lt;comentario-id&gt;4fcb6f72083611020c000f38&lt;/comentario-id&gt;
+      &lt;/comentario-ids&gt;
+      &lt;id&gt;4fcb81ffca2f251c0c001125&lt;/id&gt;
+      &lt;nombre&gt;carros&lt;/nombre&gt;
+   &lt;/tag&gt;
+&lt;/tags&gt;
+</code></pre>
+
+<h1>Nuevo tag: POST &gt; <code>/users/:user_id/comentarios/:comentario_id/tags/</code>
+</h1>
+
+<p>permite crear un tag y asociarselo a un comentario
+Ejemplo de request:</p>
+
+<pre><code>&lt;tag&gt;
+   &lt;nombre&gt;carros&lt;/nombre&gt;
+&lt;/tag&gt;
+</code></pre>
+
+<p>Ejemplo de respond:</p>
+
+<pre><code>&lt;objects type="array"&gt;
+   &lt;object&gt;
+      &lt;apellido&gt;Carvajal&lt;/apellido&gt;
+      &lt;biografia&gt;biografia&lt;/biografia&gt;
+      &lt;correo&gt;asanchez@gmail.com&lt;/correo&gt;
+      &lt;foto&gt;.&lt;/foto&gt;
+      &lt;id&gt;4fcb6beaca2f251c0c000dde&lt;/id&gt;
+      &lt;nick-name&gt;123&lt;/nick-name&gt;
+      &lt;nombre&gt;Luis&lt;/nombre&gt;
+      &lt;pais&gt;vzla&lt;/pais&gt;
+      &lt;password&gt;123&lt;/password&gt;
+      &lt;tokens type="array"&gt;
+         &lt;token&gt;
+            &lt;hora-ini&gt;2012-06-03 09:36:05 -0430&lt;/hora-ini&gt;
+            &lt;id&gt;4fcb6f4dca2f251c0c000e8c&lt;/id&gt;
+            &lt;ip&gt;192.168.1.116&lt;/ip&gt;
+            &lt;mensaje&gt;El token solicitado es:4fcb6f4dca2f251c0c000e8c&lt;/mensaje&gt;
+            &lt;status&gt;activo&lt;/status&gt;
+         &lt;/token&gt;
+         &lt;token&gt;
+            &lt;hora-ini&gt;2012-06-03 10:41:35 -0430&lt;/hora-ini&gt;
+            &lt;id&gt;4fcb7ea7ca2f251c0c001118&lt;/id&gt;
+            &lt;ip&gt;127.0.0.1&lt;/ip&gt;
+            &lt;mensaje&gt;El token solicitado es:4fcb7ea7ca2f251c0c001118&lt;/mensaje&gt;
+            &lt;status&gt;activo&lt;/status&gt;
+         &lt;/token&gt;
+      &lt;/tokens&gt;
+   &lt;/object&gt;
+   &lt;object&gt;
+      &lt;admite-respuesta type="boolean"&gt;true&lt;/admite-respuesta&gt;
+      &lt;comentario-id nil="true"/&gt;
+      &lt;hora-publicacion&gt;2012-06-03 09:36:55 -0430&lt;/hora-publicacion&gt;
+      &lt;id&gt;4fcb6f72083611020c000f38&lt;/id&gt;
+      &lt;mensaje&gt;hola  &amp;amp;nbsp;&amp;lt;a href="http://www.youtube.com/watch?v=kffacxfA7G4"&gt;http://www.youtube.com/watch?v=kffacxfA7G4&amp;lt;/a&gt;&amp;amp;nbsp;&amp;lt;br&gt;&lt;/mensaje&gt;
+      &lt;tag-ids type="array"&gt;
+         &lt;tag-id&gt;4fcb81ffca2f251c0c001125&lt;/tag-id&gt;
+      &lt;/tag-ids&gt;
+      &lt;user-id&gt;4fcb6beaca2f251c0c000dde&lt;/user-id&gt;
+   &lt;/object&gt;
+   &lt;object&gt;
+      &lt;comentario-ids type="array"&gt;
+         &lt;comentario-id&gt;4fcb6f72083611020c000f38&lt;/comentario-id&gt;
+      &lt;/comentario-ids&gt;
+      &lt;id&gt;4fcb81ffca2f251c0c001125&lt;/id&gt;
+      &lt;nombre&gt;carros&lt;/nombre&gt;
+   &lt;/object&gt;
+&lt;/objects&gt;
+</code></pre>
+
+<h3>Manejo de errores:</h3>
+
+<p>En el caso de presentarse un error durante el flujo del proceso el servidor retornara un 
+mensaje en formate xml.
+Ejemplo de Mensaje de error:</p>
+
+<pre><code>&lt;mensaje&gt;
+   &lt;id&gt;4fcb8395ca2f251c0c00112d&lt;/id&gt;
+   &lt;salida&gt;No hay token Vigente&lt;/salida&gt;
+&lt;/mensaje&gt;
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Desarrollo maintained by <a href="https://github.com/luiscarvajal">luiscarvajal</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
