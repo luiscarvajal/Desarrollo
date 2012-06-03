@@ -40,9 +40,9 @@ $ git checkout gh-pages
 ```
 
 
-##METODOS
+#METODOS
 
-###Users
+##Users
 ###GET > `/users.xml`
 Retorna todos los usuarios registrados en el sistema.
 Ejemplo de xml de respond:
@@ -138,6 +138,71 @@ Ejemplo de xml de respond:
 /users
 ````
 
+##PUT > `/users/{user_id}.xml`
+Permite modificar los datos del usuario especifico. Se debe pasar el user_id como parámetro.
+Ejemplo de xml request:
+````
+<user>
+<nombre>LILIANA</nombre>
+<apellido>MOLINA</apellido>
+<nick-name>12345</nick-name>
+<password>12345</password>
+<biografia>biografia</biografia>
+<correo>lili1@gmail.com</correo>
+<pais>vzla</pais>
+````
+
+Ejemplo de xml respond:
+````
+<user>
+   <apellido>MOLINA</apellido>
+   <biografia>biografia</biografia>
+   <correo>lili1@gmail.com</correo>
+   <id>4fc4fe3a438bbd0a48000003</id>
+   <nick-name>12345</nick-name>
+   <nombre>LILIANA</nombre>
+   <pais>vzla</pais>
+   <password>12345</password>
+   <tokens type="array">
+      <token>
+         <hora-ini>2012-06-03 10:18:58 -0430</hora-ini>
+         <id>4fcb795a438bbd12a000006a</id>
+         <ip>127.0.0.1</ip>
+         <mensaje>El token solicitado es:4fcb795a438bbd12a000006a</mensaje>
+         <status>activo</status>
+      </token>
+   </tokens>
+</user>
+````
+
+##DELETE > `/users/{user_id}.xml`
+Permite eliminar a un determinado usuario. Se debe pasar el user_id como parámetro.
+
+Ejemplo de xml respond:
+````
+<mensaje>
+   <id>4fcb7a38438bbd12a0000084</id>
+   <salida>Usuario Eliminado con exito</salida>
+</mensaje>
+````
+
+###GET > `/users/{user_id}.xml`
+Permite buscar y ver un usurio específico. Se debe pasar por parámetro el user_id
+Ejemplo de xml respond:
+````
+<user>
+   <apellido></apellido>
+   <biografia>biografia</biografia>
+   <correo>oma@gmail.com</correo>
+   <id>4fcada75438bbd0f94000011</id>
+   <nick-name>oma</nick-name>
+   <nombre>Omaira</nombre>
+   <pais>vzla</pais>
+   <password>12345</password>
+   <tokens type="array"/>
+</user>
+````
+
 ##Comentarios
 ###GET > `users/{user_id}/comentarios.xml`
 Permite listar todos los comentarios existentes que tiene un usuario en específico, se debe pasar por parametro el user_id.
@@ -192,6 +257,7 @@ Ejemplo de xml respond:
 
 ###PUT > `/users/{id_usuario}/comentarios/{id_comentario}.xml`
 Permite a un usuario comentar sus propios comentarios. Se debe pasar por parámetro el id_usuario y el id_del comentario
+
 Ejemplo de xml request:
 ````
 <comentario>
@@ -239,3 +305,32 @@ Ejemplo de xml respond:
    <user-id>4fc4fe3a438bbd0a48000003</user-id>
 </comentario>
 ````
+
+
+
+#Puntuaciones
+
+##POST > `/users/{user_id}/comentarios/{comentarios_id}/puntuaciones.xml`
+Permita a un usuario determinado puntuar los comentarios
+
+Ejemplo xml request:
+````
+<puntuacione>
+<me-gusta type="integer">1</me-gusta>
+</puntuacione>
+````
+
+Ejemplo xml respond:
+````
+<puntuacione>
+<comentario-id>4fcac0f0ca2f25210c0000ac</comentario-id>
+<id>4fcac39aca2f25210c000173</id>
+<mensaje>El comentario fue Puntuado Con exito</mensaje>
+<no-me-gusta type="integer">1</no-me-gusta>
+<user-id>4fcac0aaca2f25210c00009c</user-id>
+</puntuacione>
+````
+
+
+##GET > `/puntuaciones/lista_puntuaciones.xml`
+Perimite listar todas las puntuaciones
