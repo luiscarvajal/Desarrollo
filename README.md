@@ -24,7 +24,7 @@ A continuación se detallan los pasos que usted debe seguir:
 ##Users
 #GET > `/Users.xml`
 Retorna los usuarios en el sistema xml de respond:
-`
+```
 <users type="array">
    <user>
       <apellido>Carvajal</apellido>
@@ -49,4 +49,4 @@ Retorna los usuarios en el sistema xml de respond:
       <password>123</password>         
    </user>
 </users>
-`
+```
