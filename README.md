@@ -23,7 +23,8 @@ A continuación se detallan los pasos que usted debe seguir:
 
 ##Users
 #GET > `/Users.xml`
-Retorna los usuarios en el sistema xml de respond:
+Retorna todos los usuarios registrados en el sistema.
+Ejemplo de xml de respond:
 ```
 <users type="array">
    <user>
@@ -49,4 +50,34 @@ Retorna los usuarios en el sistema xml de respond:
       <password>123</password>         
    </user>
 </users>
+```
+
+#POST > `/Users.xml`
+Registra un usuario nuevo en el sistema.
+
+Ejemplo de xml request:
+```
+<user>
+<nombre>Luis</nombre>
+<apellido>Carvajal</apellido>
+<nick-name>lcarvajal</nick-name>
+<password>123</password>
+<biografia>biografia</biografia>
+<correo>lcarvajal@gmail.com</correo>
+<pais>vzla</pais>
+</user>
+```
+Ejemplo de xml de respond:
+```
+<user>
+   <apellido>Carvajal</apellido>
+   <biografia>biografia</biografia>
+   <correo>lcarvajal@gmail.com</correo>
+   <id>4fcac0bdca2f25210c00009e</id>
+   <nick-name>lcarvajal</nick-name>
+   <nombre>Luis</nombre>
+   <pais>vzla</pais>
+   <password>123</password>
+   <tokens type="array"/>
+</user>
 ```
