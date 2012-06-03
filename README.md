@@ -23,3 +23,30 @@ A continuación se detallan los pasos que usted debe seguir:
 
 ##Users
 #GET > `/Users.xml`
+Retorna los usuarios en el sistema xml de respond:
+`
+<users type="array">
+   <user>
+      <apellido>Carvajal</apellido>
+      <biografia>biografia</biografia>
+      <correo>lcarvajal@gmail.com</correo>
+      <foto>.</foto>
+      <id>4fcac0aaca2f25210c00009c</id>
+      <nick-name>123</nick-name>
+      <nombre>Luis</nombre>
+      <pais>vzla</pais>
+      <password>123</password>
+   </user>
+   <user>
+      <apellido>Sanchez</apellido>
+      <biografia>biografia</biografia>
+      <correo>asanchez@gmail.com</correo>
+      <foto>.</foto>
+      <id>4fcac0bdca2f25210c00009e</id>
+      <nick-name>1234</nick-name>
+      <nombre>Andres</nombre>
+      <pais>vzla</pais>
+      <password>123</password>         
+   </user>
+</users>
+`
