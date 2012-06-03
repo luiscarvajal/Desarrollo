@@ -14,7 +14,7 @@ A continuación se detallan los pasos que usted debe seguir:
 ![Descargar Ruby y DevKit](C:\Users\LILIANA>C:\Users\LILIANA\Desktop\ultimo servidor desarrollo\Desarrollo\ my_app\my_app\DescargarRuby.png) 
 
 * Terminada la instalación abrimos la linea de comandos de Ruby  (Start Command Prompt with Ruby)
-`gem update --system`
+```gem update --system```
 
 
 
