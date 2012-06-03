@@ -32,13 +32,9 @@ rails server
 * Se facilita este sencillo manual sobre los comandos básicos utilizados en Mongo DB para la generación o creación de las bases de datos. [Usos básicos Mongo DB](http://blog.jam.net.ve/2011/01/09/usos-basicos-de-mongodb-console/)  
 
 
-
 ```
-$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+git@github.com:luiscarvajal/Desarrollo.git
 ```
-
 
 #METODOS
 
@@ -306,12 +302,77 @@ Ejemplo de xml respond:
 </comentario>
 ````
 
+###GET > `/comentarios/view.xml`
+Permite listar todos los comentarios existentes.
 
+Ejemplo xml respond:
+````
+<comentarios type="array">
+   <comentario>
+      <comentario-id nil="true"/>
+      <hora-publicacion>2012-05-16 19:49:19 -0430</hora-publicacion>
+      <id>4fb44407438bbd0fac00001a</id>
+      <me-gusta>0</me-gusta>
+      <mensaje>Arpueban cupos CADIVI para ver a Maldonado y para hacer postGrado de Economia niegan dolares el CADIVI</mensaje>
+      <no-me-gusta>0</no-me-gusta>
+      <tag-ids type="array">
+         <tag-id>4fb447ba438bbd0fac00002a</tag-id>
+      </tag-ids>
+      <user-id>4fb43cc7438bbd0fac000001</user-id>
+   </comentario>
+   <comentario>
+      <admite-respuesta type="boolean">true</admite-respuesta>
+      <comentario-id nil="true"/>
+      <hora-publicacion>2012-06-02 23:07:50 -0430</hora-publicacion>
+      <id>4fcadc0e438bbd0f9400002c</id>
+      <me-gusta>0</me-gusta>
+      <mensaje>esto es el primer comentario Usuario: lili1, estoy probando</mensaje>
+      <no-me-gusta>0</no-me-gusta>
+      <tag-ids type="array"/>
+      <user-id>4fc4fe3a438bbd0a48000003</user-id>
+   </comentario>
+   <comentario>
+      <admite-respuesta type="boolean">true</admite-respuesta>
+      <comentario-id nil="true"/>
+      <hora-publicacion>2012-06-03 10:32:12 -0430</hora-publicacion>
+      <id>4fcb7c74438bbd12a0000098</id>
+      <mensaje>Antes de la entrega</mensaje>
+      <tag-ids type="array"/>
+      <user-id>4fcada75438bbd0f94000011</user-id>
+   </comentario>
+   <comentario>
+      <admite-respuesta type="boolean">true</admite-respuesta>
+      <comentario-id nil="true"/>
+      <hora-publicacion>2012-06-03 10:39:09 -0430</hora-publicacion>
+      <id>4fcb7e15438bbd12a00000ac</id>
+      <mensaje>diossss</mensaje>
+      <tag-ids type="array"/>
+      <user-id>4fcada75438bbd0f94000011</user-id>
+   </comentario>
+</comentarios>
+````
 
-#Puntuaciones
+### GET > `/comentarios/{comentario_id}/get_comentarios_hijos.xml}`
+Permite mostrar los comentarios hijos de los comentarios, es decir las respuestas de los comentarios. Se debe pasar el parámetro comentario_id 
 
-##POST > `/users/{user_id}/comentarios/{comentarios_id}/puntuaciones.xml`
-Permita a un usuario determinado puntuar los comentarios
+Ejemplo xml respond:
+````
+<comentarios type="array">
+<comentario>
+<admite-respuesta type="boolean">true</admite-respuesta>
+<comentario-id>4fcb6e9dca2f251c0c000e6f</comentario-id>
+<hora-publicacion>2012-06-03 10:14:45 -0430</hora-publicacion>
+<id>4fcb785dca2f251c0c000fde</id>
+<mensaje>respuesta de respuesta de un comentario</mensaje>
+<tag-ids type="array"/>
+<user-id>4fcb6beaca2f251c0c000dde</user-id>
+</comentario>
+</comentarios>
+````
+
+##Puntuaciones
+###POST > `/users/{user_id}/comentarios/{comentarios_id}/puntuaciones.xml`
+Permita a un usuario determinado puntuar los comentarios. Se debe pasar el user_id y el comentarios_id
 
 Ejemplo xml request:
 ````
@@ -331,6 +392,140 @@ Ejemplo xml respond:
 </puntuacione>
 ````
 
-
-##GET > `/puntuaciones/lista_puntuaciones.xml`
+###GET > `/puntuaciones/lista_puntuaciones.xml`
 Perimite listar todas las puntuaciones
+
+Ejemplo xml respond:
+````
+<puntuaciones type="array">
+<puntuacione>
+<comentario-id>4fcb6f72083611020c000f38</comentario-id>
+<id>4fcb7c2eca2f251c0c001096</id>
+<no-me-gusta type="integer">1</no-me-gusta>
+<user-id>4fcb6beaca2f251c0c000dde</user-id>
+</puntuacione>
+<puntuacione>
+<comentario-id>4fcb6f72083611020c000f38</comentario-id>
+<id>4fcb7cb4ca2f251c0c0010b8</id>
+<no-me-gusta type="integer">1</no-me-gusta>
+<user-id>4fcb6bf8ca2f251c0c000de0</user-id>
+</puntuacione>
+</puntuaciones>
+````
+
+###DELETE > `/users/{user_id}/comentarios/{comentario_id}/puntuaciones/{puntuacione_id}.xml`
+Perimite a un usuario eliminar las puntuaciones de los comentarios. Se debe pasar por parametro user-id, comentario_id y la puntuacion_id.
+Ejemplo xml respond:
+````
+<puntuacione>
+<comentario-id>4fcb6f72083611020c000f38</comentario-id>
+<id>4fcb7cb4ca2f251c0c0010b8</id>
+<no-me-gusta type="integer">1</no-me-gusta>
+<user-id>4fcb6bf8ca2f251c0c000de0</user-id>
+</puntuacione>
+````
+
+##Respuesta 
+###POST > `/users/{id_user}/comentarios/{id_comentario}/respuesta.xml`
+Permite generar una respuesta a un comentario especifico, se debe pasar por parámetro el id_user y el id_comentario
+
+Ejemplo xml request:
+````
+<comentario>
+<mensaje>22respuesta de respuesta de un comentario</mensaje>
+</comentario>
+````
+
+Ejemplo xml respond:
+````
+<comentario>
+<admite-respuesta type="boolean">true</admite-respuesta>
+<comentario-id nil="true"/>
+<hora-publicacion>2012-06-03 09:33:09 -0430</hora-publicacion>
+<id>4fcb6e9dca2f251c0c000e6f</id>
+<me-gusta>0</me-gusta>
+<mensaje>esto es el primer comentario Usuario: nombre</mensaje>
+<no-me-gusta>0</no-me-gusta>
+<tag-ids type="array"/>
+<user-id>4fcb6beaca2f251c0c000dde</user-id>
+</comentario>
+````
+
+##Tag
+###GET > `/users/{id_users}/comentarios/{id_comentarios}/tags.xml`
+Lista todos los tags que existen para los comentarios, se debe pasar por parámetro el id_user y el id_comentario.
+
+Ejemplo xml respond:
+````
+<tags type="array">
+<tag>
+<comentario-ids type="array">
+<comentario-id>4fcb6f72083611020c000f38</comentario-id>
+</comentario-ids>
+<id>4fcb81ffca2f251c0c001125</id>
+<nombre>carros</nombre>
+</tag>
+</tags>
+
+
+````
+
+###POST > `/users/{id}/comentarios/{idcomentarios}/tags.xml `
+Permite crear una nueva etiqueta, se depe pasar por parámetro el id del usuario y el id de comentarios.
+Ejemplo xml resquest:
+````
+<tag>
+<nombre>carros</nombre>
+</tag>
+````
+
+Ejemplo xml respond:
+````
+<objects type="array">
+<object>
+<apellido>Carvajal</apellido>
+<biografia>biografia</biografia>
+<correo>asanchez@gmail.com</correo>
+<foto>.</foto>
+<id>4fcb6beaca2f251c0c000dde</id>
+<nick-name>123</nick-name>
+<nombre>Luis</nombre>
+<pais>vzla</pais>
+<password>123</password>
+<tokens type="array">
+<token>
+<hora-ini>2012-06-03 09:36:05 -0430</hora-ini>
+<id>4fcb6f4dca2f251c0c000e8c</id>
+<ip>192.168.1.116</ip>
+<mensaje>El token solicitado es:4fcb6f4dca2f251c0c000e8c</mensaje>
+<status>activo</status>
+</token>
+<token>
+<hora-ini>2012-06-03 10:41:35 -0430</hora-ini>
+<id>4fcb7ea7ca2f251c0c001118</id>
+<ip>127.0.0.1</ip>
+<mensaje>El token solicitado es:4fcb7ea7ca2f251c0c001118</mensaje>
+<status>activo</status>
+</token>
+</tokens>
+</object>
+<object>
+<admite-respuesta type="boolean">true</admite-respuesta>
+<comentario-id nil="true"/>
+<hora-publicacion>2012-06-03 09:36:55 -0430</hora-publicacion>
+<id>4fcb6f72083611020c000f38</id>
+<mensaje>hola &amp;nbsp;&lt;a href="http://www.youtube.com/watch?v=kffacxfA7G4 http://www.youtube.com/watch?v=kffacxfA7G4</a &amp;nbsp;&lt;br /mensaje
+<tag-ids type="array">
+<tag-id>4fcb81ffca2f251c0c001125</tag-id>
+</tag-ids>
+<user-id>4fcb6beaca2f251c0c000dde</user-id>
+</object>
+<object>
+<comentario-ids type="array">
+<comentario-id>4fcb6f72083611020c000f38</comentario-id>
+</comentario-ids>
+<id>4fcb81ffca2f251c0c001125</id>
+<nombre>carros</nombre>
+</object>
+</objects>
+````
