@@ -189,3 +189,53 @@ Ejemplo de xml respond:
    <user-id>4fc4fe3a438bbd0a48000003</user-id>
 </comentario>
 ````
+
+###PUT > `/users/{id_usuario}/comentarios/{id_comentario}.xml`
+Permite a un usuario comentar sus propios comentarios. Se debe pasar por parámetro el id_usuario y el id_del comentario
+Ejemplo de xml request:
+````
+<comentario>
+<mensaje>comentario modificado hoy</mensaje>
+</comentario>
+````
+
+Ejemplo de xml respond:
+````
+<comentario>
+   <admite-respuesta type="boolean">true</admite-respuesta>
+   <comentario-id nil="true"/>
+   <hora-publicacion>2012-06-03 09:45:54 -0430</hora-publicacion>
+   <id>4fcb719a438bbd12a0000036</id>
+   <mensaje>comentario modificado hoy</mensaje>
+   <tag-ids type="array"/>
+   <user-id>4fc4fe3a438bbd0a48000003</user-id>
+</comentario>
+````
+
+###DELETE >  `/users/{id_usuario}/comentarios/{id_comentario}.xml`
+Permite a un usuario eliminar sus comentarios. Se debe pasar por parámetro el id_usuario y el id_comentario.
+
+Ejemplo de xml respond:
+````
+<mensaje>
+   <id>4fcb7602438bbd12a000004a</id>
+   <salida>Comentario Eliminado con exito</salida>
+</mensaje>
+````
+
+###GET > `/users/{id_usuario}/comentarios/{id_comentario}.xml`
+Permite buscar y ver un comentario especifico de un usuario determinado. Se debe pasar por parámetro el id_usuario y el id_comentario
+Ejemplo de xml respond:
+````
+<comentario>
+   <admite-respuesta type="boolean">true</admite-respuesta>
+   <comentario-id nil="true"/>
+   <hora-publicacion>2012-06-02 23:07:50 -0430</hora-publicacion>
+   <id>4fcadc0e438bbd0f9400002c</id>
+   <me-gusta>0</me-gusta>
+   <mensaje>esto es el primer comentario Usuario: lili1, estoy probando</mensaje>
+   <no-me-gusta>0</no-me-gusta>
+   <tag-ids type="array"/>
+   <user-id>4fc4fe3a438bbd0a48000003</user-id>
+</comentario>
+````
