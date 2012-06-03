@@ -69,7 +69,7 @@ Ejemplo de xml de respond:
 </users>
 ```
 
-##POST > `/users.xml`
+###POST > `/users.xml`
 Registra un usuario nuevo en el sistema.
 
 Ejemplo de xml request:
@@ -134,7 +134,7 @@ Ejemplo de xml de respond:
 /users
 ````
 
-##PUT > `/users/{user_id}.xml`
+###PUT > `/users/{user_id}.xml`
 Permite modificar los datos del usuario especifico. Se debe pasar el user_id como parámetro.
 Ejemplo de xml request:
 ````
@@ -171,7 +171,7 @@ Ejemplo de xml respond:
 </user>
 ````
 
-##DELETE > `/users/{user_id}.xml`
+###DELETE > `/users/{user_id}.xml`
 Permite eliminar a un determinado usuario. Se debe pasar el user_id como parámetro.
 
 Ejemplo de xml respond:
