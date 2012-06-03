@@ -7,12 +7,13 @@ class Comentario
   key :hora_publicacion, String
   key :me_gusta, String
   key :no_me_gusta, String
+  key :admite_respuesta, Boolean
   belongs_to :user
   key :user_ids
   many :users, :in => :user_ids
   key :tag_ids, Array
   many :tags, :in => :tag_ids
   many :puntuaciones
-  many :comentario
+  many :comentarios
   belongs_to :comentario
 end

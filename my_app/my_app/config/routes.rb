@@ -3,6 +3,7 @@ MyApp::Application.routes.draw do
   resources :sessions do
   end
 
+
   post 'users/login'
   
   get 'puntuaciones/lista_puntuaciones'
@@ -12,15 +13,21 @@ MyApp::Application.routes.draw do
   resources :tags
 
   get 'comentarios/view'
-  
+#  get 'comentarios/:comentario_id/get_comentarios_hijos'
+ 
+#  put 'users/:id/comentario/:id/respuesta'
+
   resources :comentarios do
     resources :tags
     resources :puntuaciones
+    get 'get_comentarios_hijos'
+#    resources :comentarios
   end
 
-  resources :users do
+  resources :users do  
 	resources :tokens
     resources :comentarios do
+      put 'respuesta'      
       resources :tags
       resources :puntuaciones
     end

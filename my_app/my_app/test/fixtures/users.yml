@@ -2,24 +2,36 @@
 
 one:
   id_usuario: 1
-  nombre: MyString
-  apellido: MyString
-  correo: MyString
-  nick_name: 
-  pais: MyString
-  biografia: MyString
-  password: MyString
-  foto: MyString
-  id_comentario: 
+  nombre: Luis
+  apellido: Carvajal
+  correo: lcarvajal@gmail.com
+  nick_name: 123
+  pais: vzla
+  biografia: biografia
+  password: 123
+  foto: .
+#  id_comentario:
 
 two:
-  id_usuario: 1
-  nombre: MyString
-  apellido: MyString
-  correo: MyString
-  nick_name: 
-  pais: MyString
-  biografia: MyString
-  password: MyString
+  id_usuario: 2
+  nombre: Andres
+  apellido: Sanchez
+  correo: asanchez@gmail.com
+  nick_name: 1234
+  pais: vzla
+  biografia: biografia
+  password: 123
   foto: MyString
-  id_comentario: 
+#  id_comentario:
+
+three:
+  id_usuario: 3
+  nombre: Liliana
+  apellido: Chacon
+  correo: lchacon@gmail.com
+  nick_name: 1235
+  pais: vzla
+  biografia: biografia
+  password: 123
+  foto: MyString
+#  id_comentario: 

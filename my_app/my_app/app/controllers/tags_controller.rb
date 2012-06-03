@@ -2,56 +2,81 @@ class TagsController < ApplicationController
 
   before_filter :get_user_comentario
 
+  #!C:\Users\LILIANA\Desktop\ultimo servidor desarrollo\Desarrollo\my_app\my_app
+  require 'logger'
+
+  def log_ini
+    $log=Logger.new('log.xml')
+    config.log_level = :info
+    config.log_level = :error
+    config.log_level = :warn
+  end
+
   def get_user_comentario
+    log_ini
+    $log.info("log") { "Info -- " "Entrando en el metodo get_user_comentario, controlador de tags, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
+    $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Validando que exista el user_id y el comentario_id --> estoy en el metodo get_user_comentario --> controller tags " }
     if ( (params[:user_id]) and (params[:comentario_id]) )
       @user = User.find(params[:user_id])
       @comentario = Comentario.find(params[:comentario_id])
-    end
+    $log.info("log") {"Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Los id correspondientes son #{@user} y #{@comentario} --> estoy en el metodo get_user_comentario --> controller tags "  }
+     end
   end
 
   def alltag
-  @tags = Tag.all
+    log_ini
+    $log.info("log") { "Info -- " "Entrando en el metodo alltag, controlador de tags, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
+    @tags = Tag.all
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tags }
-      format.xml { render xml: @tags.to_xml }
+      format.xml { render xml: @tags }
     end
   end
 
-
   # GET /comentarios
-  # GET /comentarios.json
+  # GET /comentarios.xml
   def index
-    @tags = @comentario.tags
-    if (@tags.size > 0)
+    log_ini
+    $log.info("log") { "Info -- " "Entrando en el metodo index de los tags, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}"}
+    if (@user == nil) or (@comentario == nil)
+      mensajesalida = Mensaje.new
+      mensajesalida.salida = "Usuario o Comentario Invalido"
+      $log.warn("log") { "Warn -- " "Usuario o Comentario Invalido, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}"}
       respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @tags }
+        format.xml { render xml: mensajesalida }
       end
     else
-      raise Exception.new("no se encuentran tags para ese comentario")
+      $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Validando si existen tag para ese comentario --> estoy en el index --> controlador de tags" }
+      @tags = @comentario.tags
+      if (@tags.size > 0)
+        respond_to do |format|
+          format.xml { render xml: @tags }
+        end
+      else
+        mensajesalida = Mensaje.new
+        mensajesalida.salida = "no se encuentran tags para ese comentario"
+        $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el index --> controlador de tags"  }
+      respond_to do |format|
+          format.xml { render xml: mensajesalida }
+        end
+      end
     end
-    
   end
 
   # GET /comentarios/1
-  # GET /comentarios/1.json
+  # GET /comentarios/1.xml
   def show
     @tag = Tag.find(params[:id])
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @tag }
       format.xml { render xml: @tag }
     end
   end
   
   # GET /comentarios/new
-  # GET /comentarios/new.json
+  # GET /comentarios/new.xml
   def new
     @tag = Tag.new
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @tag }
+      format.xml { render xml: @tag}
     end
   end
 
@@ -61,56 +86,90 @@ class TagsController < ApplicationController
   end
 
   # POST /comentarios
-  # POST /comentarios.json
+  # POST /comentarios.xml
 
-    def create
-    @tag=Tag.new(params[:tag])
-    @miArreglo = []
-    @tag.comentario_ids.push(@comentario.id)
-    @tag.save
-    @miArreglo=[@tag];
-    @comentario.tags.push(@miArreglo)
-    @comentario.save
-    respond_to do |format|      
-        format.html { redirect_to [@user,@comentario,@tag], notice: 'Puntuacione was successfully created.' }
-        format.json { render json: [@user,@comentario,@tag], status: :created, location: @tag }
-      
-    end
-    rescue Exception=>e
-    @tag = Tag.new
-    @tag.nombre = "Usuario o Comentario Inválido"
-    respond_to do |format|
-      #format.html # todos_comentarios.html.erb
-      format.json { render json: @tag }
+  def create
+   log_ini
+    $log.info("log") { "Info -- " "Entrando en el metodo create de los tags, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}"}
+     if (@user == nil) or (@comentario == nil)
+      mensajesalida = Mensaje.new
+      mensajesalida.salida = "Usuario o Comentario Invalido"
+      $log.warn("log") { "Warn -- " "Usuario o Comentario Invalido, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}"}
+      respond_to do |format|
+        format.xml { render xml: mensajesalida }
+      end
+    else
+      @tag=Tag.new(params[:tag])
+      @miArreglo = []
+      @tag.comentario_ids.push(@comentario.id)
+      $log.info("log") {"Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se ha creado el tag con los siguientes valores: #{@tag.attributes.inspect}  --> estoy en el create de los tags --> controlador de tags" }
+      @tag.save
+      @miArreglo=[@tag];
+      @comentario.tags.push(@miArreglo)
+      $log.info("log") {"Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se ha creado el cometario con los siguientes valores: #{@comentario.attributes.inspect}  --> estoy en el create de los tags --> controlador de tags" }
+      @comentario.save
+      respond_to do |format|
+        format.xml { render xml: [@user,@comentario,@tag], status: :created}
+      end
     end
   end
   
   # PUT /comentarios/1
-  # PUT /comentarios/1.json
+  # PUT /comentarios/1.xml
   def update
-    @tag = Tag.find(params[:id])
-
-    respond_to do |format|
-      if @tag.update_attributes(params[:tag])
-        format.html { redirect_to @tag, notice: 'Puntuacione was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
+    if (@user == nil) or (@comentario == nil)
+      mensajesalida = Mensaje.new
+      mensajesalida.salida = "Usuario o Comentario Invalido"
+      $log.warn("log") { "Warn -- " "Usuario o Comentario Invalido, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}"}
+      respond_to do |format|
+        format.xml { render xml: mensajesalida }
+      end
+    else
+     log_ini
+     $log.info("log") { "Info -- " "Entrando en el metodo update de los tags, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}"}
+     @tag = Tag.find(params[:id])
+      respond_to do |format|
+        if @tag.update_attributes(params[:tag])
+          $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se ha actualizado correctamente el tag --> estoy en el update de los tags --> controlador tags"  }
+          format.xml { @tag }
+        else
+          mensajesalida = Mensaje.new
+          mensajesalida.salida = @tag.errors
+          respond_to do |format|
+            $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el metodo update de los tagas --> controlador de tags"  }
+            format.xml { render xml: mensajesalida }
+          end
+          #        format.html { render action: "edit" }
+          #        format.json { render json: @tag.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   # DELETE /comentarios/1
-  # DELETE /comentarios/1.json
+  # DELETE /comentarios/1.xml
   def destroy
-    @tag = Tag.find(params[:id])
-    @tag.delete
+    log_ini
+    $log.info("log") { "Info -- " "Entrando en el metodo update de los tags, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}"}
+    @tag = Tag.find(params[:id])   
 
     respond_to do |format|
-      format.html { redirect_to user_comentario_tag_url }
-      format.json { head :no_content }
+      if (@tag.delete)
+        mensajesalida = Mensaje.new
+        mensajesalida.salida = "El tag se ha eliminado con exito"
+        $log.info("log") {"info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el destroy de los tagas --> controlador de tags"  }
+        respond_to do |format|
+          format.xml { render xml: mensajesalida }
+        end
+      else
+        mensajesalida = Mensaje.new
+        mensajesalida.salida = "El tag se ha eliminado con exito"
+        $log.Error("log") {"Error -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el destroy de los tagas --> controlador de tags"  }
+        respond_to do |format|
+          format.xml { render xml: mensajesalida }
+        end
+      end
+      
     end
-  end
-
+  end  
 end
