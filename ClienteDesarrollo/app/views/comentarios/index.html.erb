@@ -1,0 +1,31 @@
+<style type="text/css">
+.nicEdit-panel {
+ visibility:hidden;
+
+  background-color: #fff !important;
+
+}
+
+  </style>
+<script src="../nicEdit.js" type="text/javascript"></script>
+<script>
+  bkLib.onDomLoaded(function() { nicEditors.allTextAreas();
+  
+});
+        
+</script>
+<div id="vertmenu_usuario">
+    <ul>
+      <li><a href="/users/<%=@user.id%>" tabindex="1"><h1><%=@user.nick_name%><span style="color:  lightgrey; font-size: 50%" ><%= @user.correo %></span> </h1></a></li>
+<% @comentarios.each do |comentario| %>
+      <li><a href="/users/<%=@user.id%>/comentarios/<%=comentario.id%>" tabindex="1">
+          <textarea>
+    <%= comentario.mensaje.html_safe %>
+</textarea>
+         <object type="application/x-shockwave-flash" style="width:670px;height:250px" data="http://www.youtube.com/v/<%= comentario.archivo %>"> <param name="movie" value="http://www.youtube.com/v/<%= comentario.archivo %>"/></object>
+ 
+</a></li>
+<% end %>
+</ul>
+</div>
+<%= link_to 'Nuevo Comentario', new_user_comentario_path(@user.id) %>

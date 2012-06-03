@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   require "exceptions.rb"
-  #!C:\Users\LILIANA\Desktop\Desarrollo\my_app\my_app\log
-  #!C:\Users\LILIANA\Desktop\ultimo servidor desarrollo\Desarrollo\my_app\my_app
+  
   require 'logger'
 
   def log_ini
@@ -320,10 +319,12 @@ class UsersController < ApplicationController
 
   def valida_session(usuario, ip)    
     log_ini
-    @token
     $log.info("log") { "Info -- " "Entrando en el metodo valida_session el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}" }
+    @token
     for token_i in usuario.tokens
+      $log.info("log") { "Info -- "+token_i.ip+" "+ip+"#{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}" }
       if token_i.ip == ip
+        $log.info("log") { "Info -- " "ya existe un token #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}" }
         @token = token_i
         break
       end

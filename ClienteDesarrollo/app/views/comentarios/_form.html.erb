@@ -1,0 +1,51 @@
+     <script type="text/javascript">
+       
+          bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+        </script>
+<style type="text/css">
+  a {
+    color: #000;
+  }
+  a:visited{
+    color: #000;
+}
+a:hover{
+  cursor: pointer;
+  background-color: #ffffff;
+}
+  </style>
+<%= form_for @comentario, :url => "http://localhost:3000/users/"+@user.id+"/comentarios" do |f| %>
+  <table>
+    <tr>
+      <td><div class="field"  style=" background-color: #ffffff" >
+          <%= f.text_area :mensaje %>
+        </div>
+      </td>
+
+      <td valign="top"  >
+        <div>
+
+          <div id="vertmenu">
+            <h1>Publicar</h1>
+            <ul>
+              <li><a href="#" tabindex="1">admite respuesta?<%#= f.check_box  :mensaje %></a></li>
+              <li><a href="#" tabindex="2">Descartar</a></li>
+              
+                  <div class="actions">
+                    <%= f.submit "Publicar", :class =>"classname"%>
+                  </div>
+            </ul>
+          </div>
+          <div id="vertmenu">
+            Tags
+            <ul>
+              <li><a href="#" tabindex="1">Desarrollo <%#= f.check_box  :mensaje %></a></li>
+              <li><a href="#" tabindex="2">Chavez Muere<%#= f.check_box  :mensaje %></a></li>
+              <li><a href="#" tabindex="6"></a></li>
+            </ul>
+          </div>
+      </div>
+    </td>
+  </tr>
+</table>
+<% end %>

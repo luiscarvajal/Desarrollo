@@ -1,5 +1,5 @@
 class PuntuacionesController < ApplicationController
-  #!C:\Users\LILIANA\Desktop\ultimo servidor desarrollo\Desarrollo\my_app\my_app
+
   require 'logger'
 
   before_filter :get_user_comentario
@@ -111,7 +111,7 @@ class PuntuacionesController < ApplicationController
     @user
     @comentario
     $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se invoca al metodo valida_session, se le pasan los parametro: #{@user.nick_name},#{request.remote_ip} --> estoy en el metodo create --> controller puntuaciones "}
-    user_control = UserController.new
+    user_control = UsersController.new
     user_control.valida_session(@user,request.remote_ip)
     @puntuacione = Puntuacione.new(params[:puntuacione])
     if (@puntuacione.me_gusta != nil) and (@puntuacione.no_me_gusta != nil)
@@ -143,8 +143,8 @@ class PuntuacionesController < ApplicationController
         @puntuacione.user_id=@user.id
         respond_to do |format|
           if @puntuacione.save
-            $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el metodo create de puntuacion --> controlador puntuaciones"  }
             @puntuacione.mensaje = "El comentario fue Puntuado Con exito"
+            $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{@puntuacione.mensaje} --> estoy en el metodo create de puntuacion --> controlador puntuaciones"  }
             format.xml { render xml: @puntuacione}
           else
             mensajesalida = Mensaje.new
@@ -178,7 +178,7 @@ class PuntuacionesController < ApplicationController
       end
     else
       $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se invoca al metodo valida_session, se le pasan los parametro: #{@user.nick_name},#{request.remote_ip} --> estoy en el metodo update --> controlador puntuaciones"}
-      user_control = UserController.new
+      user_control = UsersController.new
       user_control.valida_session(@user,request.remote_ip)
       @puntuacione = Puntuacione.find(params[:id])
       $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Validando que el atributo puntuacione sea distinto de nul --> estoy en el metodo update --> controlador puntuaciones"}
@@ -237,7 +237,7 @@ class PuntuacionesController < ApplicationController
       end
     else
       $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se invoca al metodo valida_session, se le pasan los parametro: #{@user.nick_name},#{request.remote_ip} --> estoy en el metodo destroy puntuacion --> controlador puntuaciones"}
-      user_control = UserController.new
+      user_control = UsersController.new
       user_control.valida_session(@user,request.remote_ip)
       @puntuacione = Puntuacione.find(params[:id])
       $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Validando que el atributo puntuacione sea distinto de nul --> estoy en el metodo destroy puntuacion --> controlador puntuaciones"}

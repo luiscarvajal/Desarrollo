@@ -2,7 +2,6 @@ class TagsController < ApplicationController
 
   before_filter :get_user_comentario
 
-  #!C:\Users\LILIANA\Desktop\ultimo servidor desarrollo\Desarrollo\my_app\my_app
   require 'logger'
 
   def log_ini

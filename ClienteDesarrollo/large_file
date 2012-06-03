@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users type="array">
+  <user>
+    <apellido>sadsa</apellido>
+    <biografia>asdad</biografia>
+    <correo>asda</correo>
+    <id>4fbf9d05eefe540cdc000001</id>
+    <nick-name>aasda</nick-name>
+    <nombre>PorbandoRest</nombre>
+    <pais>dsad</pais>
+    <password>123</password>
+    <tokens type="array"/>
+  </user>
+</users>

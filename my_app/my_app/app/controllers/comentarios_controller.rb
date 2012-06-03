@@ -1,6 +1,6 @@
 class ComentariosController < ApplicationController
   require "exceptions.rb"
-  #!C:\Users\LILIANA\Desktop\ultimo servidor desarrollo\Desarrollo\my_app\my_app
+
   require 'logger'
 
   def log_ini
@@ -159,7 +159,7 @@ class ComentariosController < ApplicationController
       #      raise Exception.new()
     else
       $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se invoca al metodo valida_session, se le pasan los parametro: #{@user.nick_name},#{request.remote_ip} --> estoy en el metodo create --> controller comentarios"}
-      user_control = UserController.new
+      user_control = UsersController.new
       user_control.valida_session(@user, request.remote_ip)
       @miArreglo = []
       @comentario = Comentario.new(params[:comentario])
@@ -208,7 +208,7 @@ class ComentariosController < ApplicationController
       #      raise Exception.new("Usuario Incorrecto")
     else
       $log.info("log") {"info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> llamando a valida sesion --> controlador cometarios"  }
-      user_control = UserController.new
+      user_control = UsersController.new
       user_control.valida_session(@user, request.remote_ip)
       @comentario = @user.comentarios.find(params[:id])
       @arrayComentario = @user.comentarios
@@ -264,7 +264,7 @@ class ComentariosController < ApplicationController
           format.xml { render xml: mensajesalida }
         end
       else
-        user_control = UserController.new
+        user_control = UsersController.new
         user_control.valida_session(@user, request.remote_ip)
         if @comentario.admite_respuesta == false
           mensajesalida = Mensaje.new
@@ -322,6 +322,21 @@ class ComentariosController < ApplicationController
     end
   end
 
+  def eliminar_hijos (usuario, comentario_padre)
+    log_ini
+    $log.info("log") { "Info -- " "Entrando en el metodo get_comentarios_hijos, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} " }
+    comentarios = Comentario.all
+    for comentario in comentarios
+      if (!comentario.comentario_id.nil?)
+        if (comentario.comentario_id.to_s == comentario_padre.id.to_s)
+          comentario_eliminar = usuario.comentarios.find(comentario.id)
+          comentario_eliminar.destroy
+        end
+      end
+    end
+
+  end
+
   # DELETE /comentarios/1
   # DELETE /comentarios/1.xml
   def destroy
@@ -338,9 +353,10 @@ class ComentariosController < ApplicationController
       #      raise Exception.new("Usuario Incorrecto")
     else
       $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se invoca al metodo valida_session, se le pasan los parametro: #{@user.nick_name},#{request.remote_ip} --> estoy en el metodo destroy comentarios --> controlador comentarios"}
-      user_control = UserController.new
+      user_control = UsersController.new
       user_control.valida_session(@user, request.remote_ip)
       @comentario = @user.comentarios.find(params[:id])
+      eliminar_hijos(@user, @comentario)
       @comentario.destroy
       mensajesalida = Mensaje.new
       mensajesalida.salida = "Comentario Eliminado con exito"

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>XpresatE</title>
+  <script type="text/javascript" src="http://localhost:3000/assets/nicEdit.js"></script>
+<script type="text/javascript">
+	bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+</script>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "estilo" %>
+  <%= javascript_include_tag :ckeditor %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= stylesheet_link_tag "estilo" %>
+<div class="baner">
+  <img alt="XpresatE!"  src="http://localhost:3000/assets/ImagenesDesarrollo/logo.jpg"/>
+  <div class="menu_top" >
+    <a href="/comentarios/view" >Documentacion</a> | <a href="/comentarios/view" >Comentarios</a> | <a href="/users" >Usuarios</a>
+  </div>
+  <div class="menu_top_fix" >
+    Iniciar Sesion
+  </div>
+</div>
+  <div id="fondo" >
+  <div class="contenido" >
+  
+<%= yield %>
+</div>
+     </div>
+<div class="footer">© 2012 XpresatE! - Nosotros - Ayuda - Documentacion - Comentarios - Usuarios</div>
+</body>
+</html>
