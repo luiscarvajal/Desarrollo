@@ -26,9 +26,20 @@ class TagsController < ApplicationController
     log_ini
     $log.info("log") { "Info -- " "Entrando en el metodo alltag, controlador de tags, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
     @tags = Tag.all
+    if @tags.size<0
+      $log.error("log") { "Error -- " "No existen tags en el sistema #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
+      raise Exception.new("No existen tags en el sistema")
+    end
     respond_to do |format|
       format.xml { render xml: @tags }
     end
+  rescue Exception=>e
+     mensajesalida = Mensaje.new
+      mensajesalida.salida = e.message
+      $log.warn("log") { "Warn -- " +e.message+" el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}"}
+      respond_to do |format|
+        format.xml { render xml: mensajesalida }
+      end
   end
 
   # GET /comentarios
@@ -100,6 +111,7 @@ class TagsController < ApplicationController
     else
       @tag=Tag.new(params[:tag])
       @miArreglo = []
+      @tag = tag_exist(@tag)
       @tag.comentario_ids.push(@comentario.id)
       $log.info("log") {"Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se ha creado el tag con los siguientes valores: #{@tag.attributes.inspect}  --> estoy en el create de los tags --> controlador de tags" }
       @tag.save
@@ -112,7 +124,17 @@ class TagsController < ApplicationController
       end
     end
   end
-  
+
+  def tag_exist (tag)
+    alltag = Tag.all
+    for tagi in alltag
+      if tagi.nombre == tag.nombre
+        return tagi
+      end
+    end
+    return tag
+  end
+
   # PUT /comentarios/1
   # PUT /comentarios/1.xml
   def update

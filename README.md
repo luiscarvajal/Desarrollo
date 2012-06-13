@@ -9,16 +9,35 @@ Es importante destacar que la plataforma cuenta los siguientes requerimientos fu
 A continuación se detallan los pasos que usted debe seguir:
 
 ### 1- Instalar Ruby on Rails
-* Descargue la versión de Ruby 1.9.3-p0 y el DevKit-tdm-32-4.5.2-20110712-1620-sfx.exe, ubicados en el siguiente link [Descar Ruby on Rails](http://rubyinstaller.org/downloads/archives, en la imagen se indica que archivos descargarse. Ejecute primero el instalador de Ruby luego el de DevKit.
+* Descargue la versi?n de Ruby 1.9.3-p0 y el DevKit-tdm-32-4.5.2-20110712-1620-sfx.exe, ubicados en el siguiente link [Descar Ruby on Rails](http://rubyinstaller.org/downloads/archives, en la imagen se indica que archivos descargarse. Ejecute primero el instalador de Ruby luego el de DevKit.
+* Terminada la instalaci?n abrimos la linea de comandos de Ruby  (Start Command Prompt with Ruby)
+`gem update --system`
 
-![Descargar Ruby y DevKit](C:\Users\LILIANA>C:\Users\LILIANA\Desktop\ultimo servidor desarrollo\Desarrollo\ my_app\my_app\DescargarRuby.png) 
+* Una vez instalado el Ruby y con ayuda del RubyGems, podemos proceder a instalar el Framework Rails que se trata de una ?gema?, nuevamente en la l?nea de comandos escribimos: `gem install rails`
 
-* Terminada la instalación abrimos la linea de comandos de Ruby  (Start Command Prompt with Ruby)
-```gem update --system```
+* Cree su primera aplicaci?n de la siguiente forma
+``````
+rails new demo
+cd demo
+rails generate scaffold persona nombre:string tlf:integer
+rake db:create
+rake db:migrate
+rails server
+``````
+### 2- Instalar Mongo DB
+* Descargar la version2.0.5 de Mongo DB en siguiente link [Descargar Mongo DB](http://www.mongodb.org/downloads) y de acuerdo al sistema operativo que posea su equipo.
+
+* Para instalar Mongo DB en Ruby on Rails siga los pasos del siguiente link: [Mongo DB en Ruby](http://www.mongodb.org/display/DOCS/Ruby+Language+Center).
+
+* Se facilita este sencillo manual sobre los comandos b?sicos utilizados en Mongo DB para la generaci?n o creaci?n de las bases de datos. [Usos b?sicos Mongo DB](http://blog.jam.net.ve/2011/01/09/usos-basicos-de-mongodb-console/)  
 
 
 
-
+```
+$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+```
 
 
 ### Metodos Disponibles en la aplicacion:

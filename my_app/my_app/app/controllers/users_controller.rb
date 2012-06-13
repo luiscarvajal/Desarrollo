@@ -10,6 +10,9 @@ class UsersController < ApplicationController
     config.log_level = :warn
   end
 
+  def uploadfile
+    render :file => 'app/views/users/upload.erb'
+  end
   # GET /users
   # GET /users.xml
   def index
@@ -76,9 +79,13 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.xml
-  def create
+  def create    
+    create_user(params[:user])
+  end
+
+  def create_user (user_dat)
     log_ini
-    @user = User.new(params[:user])
+    @user = User.new(user_dat)
     $log.info("log") { "Info -- " "Entrando en el metodo de crear del usuario, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
     $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se invoca al metodo para valida_nick_name, se le pasa el parametro: #{@user.nick_name} --> estoy en el metodo create "}
     if (!valida_nick_name(@user.nick_name))
@@ -111,13 +118,17 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
+    update_user(params[:id])
+  end
+
+  def update_user(user_dat)
     log_ini
-    @user = User.find(params[:id])
+    @user = User.find(user_dat)
     $log.info("log") { "Info -- " "Entrando en el update del usuario, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
     $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se invoca al metodo valida_session, se le pasan los parametro: #{@user.nick_name},#{request.remote_ip} --> estoy en el metodo update "}
     valida_session(@user, request.remote_ip)
     respond_to do |format|
-      if @user.update_attributes(params[:user])        
+      if @user.update_attributes(user_dat)
         $log.info("log") { "Info -- " "El usuario ha sido modificado exitosamente el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}, sus datos son: #{@user.attributes.inspect} --> estoy en el metodo update" }
         format.xml { render xml: @user }
       else
@@ -147,13 +158,16 @@ class UsersController < ApplicationController
     end
     #    raise Exceptions::BusinessException.new("id_usuario incorrecto")
   end
-
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy    
+    destroy_user(params[:id])
+  end
+
+  def destroy_user(user_dat)
     log_ini
     $log.info("log") { "Info -- " "Entrando en el metodo de eliminar un usuario, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} " }
-    @user = User.find(params[:id])
+    @user = User.find(user_dat)
     if @user == nil
       mensajesalida = Mensaje.new
       mensajesalida.salida = "id_usuario incorrecto"
@@ -187,14 +201,14 @@ class UsersController < ApplicationController
     $log.error("log") { "Error -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Ha ocurrido un error, #{mensajesalida.salida} --> estoy en el metodo destroy "  }
     respond_to do |format|
       format.xml { render xml: mensajesalida}
-    end    
+    end
   rescue Exception=>e
     mensajesalida = Mensaje.new
     mensajesalida.salida = e.message
     $log.error("log") { "Error -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Ha ocurrido un error, #{mensajesalida.salida} --> estoy en el metodo destroy "  }
     respond_to do |format|
       format.xml { render xml: mensajesalida}
-    end    
+    end
   end
 
   def valida_nick_name (nick)

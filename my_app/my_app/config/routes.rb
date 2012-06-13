@@ -1,5 +1,9 @@
 MyApp::Application.routes.draw do
   
+  resources :uploads
+
+  resources :uploads
+
   resources :sessions do
   end
 
@@ -16,11 +20,11 @@ MyApp::Application.routes.draw do
 #  get 'comentarios/:comentario_id/get_comentarios_hijos'
  
 #  put 'users/:id/comentario/:id/respuesta'
-
+  post 'comentarios/get_comentarios_tag'  
   resources :comentarios do
     resources :tags
     resources :puntuaciones
-    get 'get_comentarios_hijos'
+    get 'get_comentarios_hijos'    
 #    resources :comentarios
   end
 

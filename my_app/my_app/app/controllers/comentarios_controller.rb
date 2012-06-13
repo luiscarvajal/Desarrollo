@@ -5,6 +5,7 @@ class ComentariosController < ApplicationController
 
   def log_ini
     $log=Logger.new('log.xml')
+    $log2=Logger.new('log2.xml')
     config.log_level = :info
     config.log_level = :error
     config.log_level = :warn
@@ -145,9 +146,13 @@ class ComentariosController < ApplicationController
   # POST /comentarios
   # POST /comentarios.xml 
   def create
+    crear_comentario(params[:user_id], params[:comentario])
+  end
+
+  def crear_comentario(user_dat,comentario_dat)
     log_ini
     $log.info("log") { "Info -- " "Entrando en el metodo create de comentarios, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
-    @user = User.find(params[:user_id])
+    @user = User.find(user_dat)
     $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se valida que el usuario no sea nulo --> estoy en el metodo create de comentarios --> controlador comentarios"  }
     if (@user == nil)
       mensajesalida = Mensaje.new
@@ -162,7 +167,7 @@ class ComentariosController < ApplicationController
       user_control = UsersController.new
       user_control.valida_session(@user, request.remote_ip)
       @miArreglo = []
-      @comentario = Comentario.new(params[:comentario])
+      @comentario = Comentario.new(comentario_dat)
       if (@comentario.admite_respuesta == nil)
         @comentario.admite_respuesta = true
       end
@@ -171,33 +176,36 @@ class ComentariosController < ApplicationController
       @user.comentarios.push(@miArreglo)
       $log.info("log") { "Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se ha registrado exitosamente los valores siguientes valores de usuario: #{@user.attributes.inspect} "  }
       @user.save
-      respond_to do |format|        
+      respond_to do |format|
         format.xml { render xml: @comentario}
       end
     end
-    
+
   rescue Exceptions::BusinessException => be
     mensajesalida = Mensaje.new
     mensajesalida.salida = be.message
     $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el metodo create --> controlador cometarios"  }
     respond_to do |format|
       format.xml { render xml: mensajesalida }
-    end    
+    end
   rescue Exception => e
     mensajesalida = Mensaje.new
     mensajesalida.salida = e.message
     $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el metodo create --> controlador cometarios"  }
     respond_to do |format|
       format.xml { render xml: mensajesalida }
-    end    
+    end
   end
-
   # PUT /comentarios/1
   # PUT /comentarios/1.xml
   def update
+    modificar_comentario(params[:user_id], params[:id],params[:comentario])
+  end
+
+  def modificar_comentario(user_dat,comentario_id,comentario_dat)
     log_ini
     $log.info("log") { "Info -- " "Entrando en el metodo update del usuario, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
-    @user = User.find(params[:user_id])
+    @user = User.find(user_dat)
     if (@user == nil)
       mensajesalida = Mensaje.new
       mensajesalida.salida = "Usuario Incorrecto"
@@ -210,19 +218,19 @@ class ComentariosController < ApplicationController
       $log.info("log") {"info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> llamando a valida sesion --> controlador cometarios"  }
       user_control = UsersController.new
       user_control.valida_session(@user, request.remote_ip)
-      @comentario = @user.comentarios.find(params[:id])
+      @comentario = @user.comentarios.find(comentario_id)
       @arrayComentario = @user.comentarios
       respond_to do |format|
-        if @comentario.update_attributes(params[:comentario])                    
+        if @comentario.update_attributes(comentario_dat)
           $log.info("log") {"info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> Comentario modificado con exito --> controlador cometarios"  }
           format.xml { render xml: @comentario }
         else
           $log.error("log") {"error -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> Error modificando el Comentario --> controlador cometarios"  }
           mensajesalida = Mensaje.new
           mensajesalida.salida = @comentario.errors
-          respond_to do |format|            
+          respond_to do |format|
             format.xml { render xml: mensajesalida }
-          end          
+          end
         end
       end
     end
@@ -240,21 +248,25 @@ class ComentariosController < ApplicationController
     $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el metodo update --> controlador cometarios"  }
     respond_to do |format|
       format.xml { render xml: mensajesalida }
-    end    
+    end
   end
 
   def respuesta
+    respuesta_comentario(params[:user_id], params[:comentario_id], params[:comentario])
+  end
+
+  def respuesta_comentario (user_dat,comentario_padre,respuesta)
     log_ini
     $log.info("log") { "Info -- " "Entrando en el metodo respuesta de comentarios, el dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec} "}
-    @user = User.find(params[:user_id])
-    @comentario = Comentario.find(params[:comentario_id])
+    @user = User.find(user_dat)
+    @comentario = Comentario.find(comentario_padre)
     if (@user == nil)
       mensajesalida = Mensaje.new
       mensajesalida.salida = "Usuario Incorrecto"
       $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el metodo respuesta --> controlador cometarios"  }
       respond_to do |format|
         format.xml { render xml: mensajesalida }
-      end      
+      end
     else
       if (@comentario == nil)
         mensajesalida = Mensaje.new
@@ -272,9 +284,9 @@ class ComentariosController < ApplicationController
           $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el metodo respuesta --> controlador cometarios"  }
           respond_to do |format|
             format.xml { render xml: mensajesalida }
-          end          
+          end
         else
-          @comentario_nuevo = Comentario.new(params[:comentario])
+          @comentario_nuevo = Comentario.new(respuesta)
           @comentario_nuevo.user_id=@user.id
           @comentario_nuevo.hora_publicacion = Time.new
           if (@comentario_nuevo.admite_respuesta == nil)
@@ -289,7 +301,7 @@ class ComentariosController < ApplicationController
           @comentario.comentarios.push(@arreglo)
           $log.info("log") {"Info -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. Se guarda existosamente el comentario, teniendo los siguientes paramentros: #{@comentario.attributes.inspect} --> estoy en el metodo respuesta --> controlador cometarios"  }
           @comentario.save
-          respond_to do |format|            
+          respond_to do |format|
             format.xml { render xml: @comentario }
           end
         end
@@ -381,5 +393,36 @@ class ComentariosController < ApplicationController
       format.xml { render xml: mensajesalida }
     end
     #    raise Exception.new()
-  end 
+  end
+
+  def get_comentarios_tag
+    log_ini
+    @tags =[]
+    @tags = Tag.new(params[:tag])
+    @alltag = Tag.all
+    @return = []
+    for tag in @alltag
+      $log2.warn("log2") {tag.nombre}
+      $log2.warn("log2") {@tags.nombre}
+      if tag.nombre==@tags.nombre        
+        @return = tag.comentario_ids
+      end
+    end
+    @retorno = []
+    for comentario in @return
+      com = Comentario.find(comentario)
+      @retorno.push(com)
+    end
+
+    respond_to do |format|
+      format.xml { render xml: @retorno }
+    end
+  rescue Exception=>e
+    mensajesalida = Mensaje.new
+    mensajesalida.salida = e.message
+    $log.warn("log") {"Warn -- " "Dia #{Time.new.day}/#{Time.new.mon}/#{Time.new.year} a las #{Time.new.hour}:#{Time.new.min}:#{Time.new.sec}. #{mensajesalida.salida} --> estoy en el metodo get_comentarios_tag"  }
+    respond_to do |format|
+      format.xml { render xml: mensajesalida }
+    end
+  end  
 end
