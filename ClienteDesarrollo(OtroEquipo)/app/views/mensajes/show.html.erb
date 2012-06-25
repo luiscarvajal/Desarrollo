@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<div id="vertmenu_usuario">
+  <ul>
+    <li><a href="/users/<%=@token.nick%>" tabindex="1"><h1><%=@token.nick%><span style="color:  lightgrey; font-size: 50%" ></span> </h1></a></li>
+
+    <li>
+        <ul>
+          <li>
+            <a href="#">
+              <b>Mensaje:</b>
+              <br></br></a></li></ul>
+        <textarea>
+          <%= @mensaje.comentario %>
+        </textarea>
+
+        <ul>
+          <li>
+            <a href="#"><b>Me gusta:</b> <%= @mensaje.me_gusta%><b> No me gusta:</b><%= @mensaje.no_me_gusta%> Hora Publicacion: <%= @mensaje.fechacreacion %></a>
+          </li>
+        </ul>
+        <object type="application/x-shockwave-flash" style="width:670px;height:250px" data="http://www.youtube.com/v/<%= @mensaje.video %>"> <param name="movie" value="http://www.youtube.com/v/<%= @mensaje.video %>"/></object>
+<a href="/mensajes/enviarrespuesta/<%=@mensaje.id%>" tabindex="1" class="classname">Responder
+</a>
+    </li>
+
+  </ul>
+  <ul><li><h1>Respuestas</h1> </li></ul>
+  <% @respuestas.each do |mensaje| %>
+<ul>
+    <li><a href="/users/<%=mensaje.nick_name%>" tabindex="1"><h1><%=mensaje.nick_name%><span style="color:  lightgrey; font-size: 50%" ></span> </h1></a></li>
+
+    <li>
+        <ul>
+          <li>
+            <a href="#">
+              <b>Mensaje:</b>
+              <br></br></a></li></ul>
+        <textarea>
+          <%= @mensaje.comentario %>
+        </textarea>
+
+        <ul>
+          <li>
+            <a href="#"><b>Me gusta:</b> <%= @mensaje.me_gusta%><b> No me gusta:</b><%= @mensaje.no_me_gusta%> Hora Publicacion: <%= @mensaje.fechacreacion %></a>
+          </li>
+        </ul>
+        <object type="application/x-shockwave-flash" style="width:670px;height:250px" data="http://www.youtube.com/v/<%= @mensaje.video %>"> <param name="movie" value="http://www.youtube.com/v/<%= @mensaje.video %>"/></object>
+
+    </li>
+
+  </ul>
+  <%end%>
+</div>
+
+<a href="/mensajes/new">Crear Mensaje</a>
+<a href="/mensajes/edit">Editar Mensaje</a>
+<a href="/mensajes">Atras</a>

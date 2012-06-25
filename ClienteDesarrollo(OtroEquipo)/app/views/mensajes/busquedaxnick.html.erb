@@ -1,0 +1,30 @@
+<style type="text/css">
+.nicEdit-panel {
+ visibility:hidden;
+
+  background-color: #fff !important;
+
+}
+
+  </style>
+<script src="../nicEdit.js" type="text/javascript"></script>
+<script>
+  bkLib.onDomLoaded(function() { nicEditors.allTextAreas();
+  
+});
+        
+</script>
+<div id="vertmenu_usuario">
+    <ul>
+      <li><a href="/users/" tabindex="1"><h1><%=@nick%><span style="color:  lightgrey; font-size: 50%" ></span> </h1></a></li>
+<% @mensajes.each do |mensaje| %>
+      <li><a href="/mensajes/<%=mensaje.id%>" tabindex="1">
+          <textarea>
+    <%= mensaje.comentario.html_safe %>
+</textarea>
+         <object type="application/x-shockwave-flash" style="width:670px;height:250px" data="http://www.youtube.com/v/<%= mensaje.video %>"> <param name="movie" value="http://www.youtube.com/v/<%= mensaje.video%>"/></object>
+ 
+</a></li>
+<% end %>
+</ul>
+</div>

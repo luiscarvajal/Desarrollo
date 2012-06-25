@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+ <div id="vertmenu_usuario">
+    <ul>
+      <li><a href="/users/<%=@user.id%>" tabindex="1">
+          <img alt="FotoPerfil" width="100px" src="http://localhost:3000/assets/ImagenesDesarrollo/foto.jpg<%#=@user.foto %>" class="foto_usuario_index" style="  float: left;
+               margin-right: 20px;" /> <h1><%= @user.nick_name %> <span style="color:  lightgrey; font-size: 50%" ><%= @user.correo %></span> </h1>
+
+            <%= link_to @user.nombre,user_path(@user.id)%> <%= link_to @user.apellido,user_path(@user.id)%>
+          <br></br>
+          <%= link_to @user.pais,user_path(@user.id)%>
+          <br></br>
+<%= link_to @user.biografia,user_path(@user.id)%>
+
+          <br></br>
+          <%= link_to 'Show',user_path(@user.id)%>
+          <%= link_to 'Edit', edit_user_path(@user.id) %>
+          <%= link_to 'Destroy', user_path(@user.id), confirm: 'Are you sure?', method: :delete %>
+        </a></li>
+
+    </ul>
+  </div>
+
+<%= link_to 'Back', users_path %>

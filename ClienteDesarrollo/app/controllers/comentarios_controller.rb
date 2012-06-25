@@ -1,15 +1,14 @@
 class ComentariosController < ApplicationController
  
   before_filter :get_user
-#busca un usuario dado un  id que viene por url
+
   def get_user
     @controlador_usuario=UsersController.new
-    @user = @controlador_usuario.buscar_usuario_id(params[:user_id],@controlador_usuario.get_ip)
+    @user = @controlador_usuario.buscar_usuario_id(params[:user_id],@controlador_usuario.get_ip,@controlador_usuario.get_port)
   end
 
   # GET /comentarios
   # GET /comentarios.json
-  #muestra todos los comentarios del sistema
   def view
     @users= User.all
     @comentarios = Comentario.all
@@ -33,17 +32,15 @@ class ComentariosController < ApplicationController
   
   # GET /comentarios
   # GET /comentarios.json
-  #muestra todos los comentarios de un usuario dado
   def index
-
+     @comentarios=[]
     require 'net/http'
     require 'uri'
     require 'rexml/document'
-    endpoint = Net::HTTP.new(@controlador_usuario.get_ip,3000)
+    endpoint = Net::HTTP.new(@controlador_usuario.get_ip,@controlador_usuario.get_port)
     response = endpoint.get("/users/"+@user.id+"/comentarios")
     document = REXML::Document.new(response.body)
     xml=document.elements.to_a( "//comentarios/comentario" )
-
 
     if document[2][1].to_s.to(8) == "<comentar"
     @comentarios=[]
@@ -87,7 +84,6 @@ class ComentariosController < ApplicationController
 
   # GET /comentarios/1
   # GET /comentarios/1.json
-  #muestra un comentario en particular de un usuario
   def show
 
     if (params[:id]=="view")
@@ -128,9 +124,11 @@ class ComentariosController < ApplicationController
  # GET /comentarios/new
   # GET /comentarios/new.json 
     def new
-#      @mensaje="Bienvenido "+@user.nombre
+      @mensaje="Bienvenido "+@user.nombre
     @comentario = Comentario.new
     @comentario.user_id=@user.id
+    @user
+    @tags=[]
         #@mensaje=document
 #        respond_to do |format|
 #      format.html # show.html.erb
@@ -140,46 +138,47 @@ class ComentariosController < ApplicationController
 
   # POST /comentarios
   # POST /comentarios.json
-# Envia al servicio web un xml con los datos del comentario para ser guardado
+
   def create
      require 'net/http'
-    http = Net::HTTP.new(@controlador_usuario.get_ip,3000)
+    http = Net::HTTP.new(@controlador_usuario.get_ip,@controlador_usuario.get_port)
     request = Net::HTTP::Post.new("/users/"+@user.id+"/comentarios.xml")
     @comentario = Comentario.new(params[:comentario])
-    @comentario.mensaje['&nbsp;']=" "
-    
+#    if @comentario.mensaje['&nbsp;']
+#      @comentario.mensaje['&nbsp;']=" "
+#    end
+#    if @comentario.mensaje['amp;']
+#      @comentario.mensaje['amp;']=" "
+#    end
+#        if @comentario.mensaje['/div']
+#      @comentario.mensaje['/div']=" "
+#    end
+
     @comentario.user_id=@user.id
     @comentario=@comentario.to_xml
     request.content_type = "application/xml"
     request.body = @comentario
     response = http.request(request)
-    response = Net::HTTP.start(@controlador_usuario.get_ip,3000) {|http| http.request(request)}
+    response = Net::HTTP.start(@controlador_usuario.get_ip,@controlador_usuario.get_port) {|http| http.request(request)}
 
-#
-#
-#    @miArreglo = []
-#    @comentario = Comentario.new(params[:comentario])
-#    @comentario.hora_publicacion = Time.new.to_s
-#    @miArreglo=[@comentario];
-#    @user.comentarios.push(@miArreglo)
-#
-  
-#
+
 document = REXML::Document.new(response.body)
    # @mensaje= 
-    #    @mensaje=xml[0][0]
+    
     xml=document.elements.to_a( "//salida" )
-    if (!xml.empty?)
+        
+       if (!xml.empty?)
+    if (xml[0][0]=="No hay token Vigente")
+
         @mensaje=xml[0][0]
-          respond_to do |format|
-        format.html # show.html.erb
-      end
-    else
-          respond_to do |format|
+        redirect_to "http://localhost:3000/sessions/"
+        end
+       else
+               respond_to do |format|
       format.html { redirect_to user_comentarios_url }
      format.json { head :no_content }
-    end
-    end
+       end
+       end
 #    respond_to do |format|
 #      format.html { redirect_to user_comentarios_url }
 #      format.json { head :no_content }
@@ -188,7 +187,6 @@ document = REXML::Document.new(response.body)
 
   # PUT /comentarios/1
   # PUT /comentarios/1.json
-  # Envia al servicio web un xml con los datos del comentario para ser actualizado
   def update
     @comentario = @user.comentarios.find(params[:id])
     respond_to do |format|
@@ -204,7 +202,6 @@ document = REXML::Document.new(response.body)
 
   # DELETE /comentarios/1
   # DELETE /comentarios/1.json
-  # Envia al servicio web un xml con los datos del comentario para ser eliminado
   def destroy
     @comentario = @user.comentarios.find(params[:id])
     @comentario.destroy

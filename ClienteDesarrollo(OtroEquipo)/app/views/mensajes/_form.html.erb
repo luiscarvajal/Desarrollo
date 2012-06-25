@@ -1,0 +1,60 @@
+     <script type="text/javascript">
+       
+          bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+        </script>
+<style type="text/css">
+  a {
+    color: #000;
+  }
+  a:visited{
+    color: #000;
+}
+a:hover{
+  cursor: pointer;
+  background-color: #ffffff;
+}
+  </style> 
+<%= form_for (@mensaje) do |f| %>
+  <table>
+    <tr>
+      <td>
+        <div class="field"  style=" background-color: #ffffff" >
+          <%= f.label :titulo%>
+          <%= f.text_field :nombre, :required => true %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        
+        <div class="field"  style=" background-color: #ffffff" >
+          <%= f.text_area :comentario, :required => true %>
+        </div>
+      </td>
+
+      <td valign="top"  >
+        <div>
+          <div id="vertmenu">
+            <h1>Publicar</h1>
+            <ul>
+              <li><a href="#" tabindex="1"><%= f.check_box  :respuesta %></a></li>
+              <li><a href="#" tabindex="2">Descartar</a></li>
+              
+                  <div class="actions">
+                    <%= f.submit "Publicar", :class =>"classname"%>
+                  </div>
+            </ul>
+          </div>
+          <div id="vertmenu">
+            Tags
+            <ul>
+              <li><a href="#" tabindex="1"> <%= select("post", "nombre", @tags.collect{|p|[p.nombre,p.nombre]},{:include_blank => 'selecciona'}) %></a></li>
+              <li><a href="#" tabindex="2">Chavez Muere<%#= f.check_box  :mensaje %></a></li>
+              <li><a href="#" tabindex="6"></a></li>
+            </ul>
+          </div>
+      </div>
+    </td>
+  </tr>
+</table>
+<% end %>

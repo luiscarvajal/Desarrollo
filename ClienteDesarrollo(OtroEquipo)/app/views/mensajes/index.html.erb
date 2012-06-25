@@ -1,0 +1,33 @@
+<style type="text/css">
+.nicEdit-panel {
+ visibility:hidden;
+
+  background-color: #fff !important;
+
+}
+
+  </style>
+<script src="../nicEdit.js" type="text/javascript"></script>
+<script>
+  bkLib.onDomLoaded(function() { nicEditors.allTextAreas();
+  
+});
+        
+</script>
+<p id="notice"><%= notice %></p>
+<div id="vertmenu_usuario">
+    <ul>
+      <li><a href="/users/" tabindex="1"><h1><%=@token.nick%><span style="color:  lightgrey; font-size: 50%" ></span> </h1></a></li>
+<% @mensajes.each do |mensaje| %>
+      <li><a href="/mensajes/<%=mensaje.id%>" tabindex="1">
+          <textarea>
+    <%= mensaje.comentario.html_safe %>
+</textarea>
+          <a href="#"><b>Me gusta:</b> <%= mensaje.me_gusta%><b> No me gusta:</b><%= mensaje.no_me_gusta%> Hora Publicacion: <%= mensaje.fechacreacion %></a>
+         <object type="application/x-shockwave-flash" style="width:670px;height:250px" data="http://www.youtube.com/v/<%= mensaje.video %>"> <param name="movie" value="http://www.youtube.com/v/<%= mensaje.video%>"/></object>
+ 
+</a></li>
+<% end %>
+</ul>
+</div>
+<%= link_to 'Nuevo mensaje', new_mensaje_path %>

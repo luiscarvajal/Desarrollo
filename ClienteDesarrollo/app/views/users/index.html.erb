@@ -16,13 +16,15 @@
 <%= link_to user.biografia,user_path(user.id)%>
           
           <br></br>
-          <%= link_to 'Show',user_path(user.id)%>
-          <%= link_to 'Edit', edit_user_path(user.id) %>
-          <%= link_to 'Destroy', user_path(user.id), confirm: 'Are you sure?', method: :delete %>
+          <%= link_to 'Mostrar',user_path(user.id)%>
+          <%= link_to 'Editar Perfil', edit_user_path(user.id) %>
+          <%= link_to 'Eliminar', user_path(user.id), confirm: '¿Estas seguro?', method: :delete %>
+          <%= link_to 'Crear comentario', new_user_comentario_path(user.id) %>
+          <a href="/sessions" >Iniciar Sesion</a>
         </a></li>
 
     </ul>
   </div>
 <% end %>
 
-<span style="color: #ffffff" ><%= link_to 'New User', new_user_path , :class =>"classname"%></span>
+<span style="color: #ffffff" ><%= link_to 'Nuevo Usuario', new_user_path , :class =>"classname"%></span>

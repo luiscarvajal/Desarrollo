@@ -1,0 +1,54 @@
+<style type="text/css">
+.nicEdit-panel {
+ visibility:hidden;
+
+  background-color: #fff !important;
+
+}
+
+  </style>
+<script src="../nicEdit.js" type="text/javascript"></script>
+<script>
+  bkLib.onDomLoaded(function() { nicEditors.allTextAreas();
+
+});
+
+</script>
+<div id="vertmenu_usuario">
+    <ul>
+      <li><a href="/users/" tabindex="1"><h1>Mensajes en Xpresa<span style="color:  chartreuse" >tE!</span> </h1></a></li>
+
+<%= form_for @nick, :url=>"http://localhost:3000/mensajes/busquedaxnick" do |f| %>
+          <%= f.label :Buscar%><span style="color: gray" > por nick</span>
+          <%= f.text_field :nick, :required => true %>
+    
+                  <%= f.submit "Buscar", :class =>"classname"%>
+    
+<%end%>
+
+<%= form_for @tag, :url=>"http://localhost:3000/mensajes/busquedaxtag" do |f| %>
+<%= f.label :Buscar%><span style="color: gray" > por tag</span>
+<%= f.text_field :tag, :required => true %>
+
+        <%= f.submit "Buscar", :class =>"classname"%>
+
+<%end%>
+      
+  <% @mensajes.each do |mensaje| %>
+      <li><a href="/mensajes/<%=mensaje.id%>" tabindex="1">
+          <textarea>
+  <%= mensaje.comentario.html_safe %>
+</textarea>
+          <a href="#"><b>Me gusta:</b> <%= mensaje.me_gusta%><b> No me gusta:</b><%= mensaje.no_me_gusta%> Hora Publicacion: <%= mensaje.fechacreacion %></a>
+          </a>
+         <object type="application/x-shockwave-flash" style="width:670px;height:250px" data="http://www.youtube.com/v/<%= mensaje.video %>"> <param name="movie" value="http://www.youtube.com/v/<%= mensaje.video%>"/></object>
+         <a href="/mensajes/enviarrespuesta/<%=mensaje.id%>" tabindex="1" class="classname">Responder</a>
+        <%= form_for mensaje, :url=>"http://localhost:3000/mensajes/"+mensaje.id+"/puntuar" do |f| %>
+         <%= f.label :like%><%= f.check_box :me_gusta,{checked: false}%>
+          <%= f.label :dislike%><%= f.check_box :no_me_gusta,{checked: false}%>
+          <%= f.submit "Puntuar", :class =>"classname"%>
+         <% end %>
+      </li>
+<% end %>
+</ul>
+</div>

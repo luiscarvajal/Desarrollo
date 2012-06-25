@@ -1,6 +1,5 @@
-<h1>Editing comentario</h1>
+<h1>Edicion de comentario</h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', [@user,@comentario] %> |
+<a href="/users/<%=@user.id%>/comentarios/<%=@comentario.id%>" tabindex="1">Ver</a> |
 <%= link_to 'Back', user_comentarios_path %>

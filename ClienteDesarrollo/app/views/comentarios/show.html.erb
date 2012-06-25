@@ -1,14 +1,31 @@
-
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Mensaje:</b>
-  <%= @comentario.mensaje %>
-  <b>Hora Publicacion:</b>
-  <%= @comentario.hora_publicacion %>
-  <b>Me gusta:</b><%= @comentario.me_gusta%><b>No me gusta:</b><%= @comentario.no_me_gusta%>
-</p>
+<div id="vertmenu_usuario">
+  <ul>
+    <li><a href="/users/<%=@user.id%>" tabindex="1"><h1><%=@user.nick_name%><span style="color:  lightgrey; font-size: 50%" ><%= @user.correo %></span> </h1></a></li>
 
+    <li><a href="/users/<%=@user.id%>/comentarios/<%=@comentario.id%>" tabindex="1">
+        <ul>
+          <li>
+            <a href="#">
+              <b>Mensaje:</b>
+              <br></br></a></li></ul>
+        <textarea>
+          <%= @comentario.mensaje %>
+        </textarea>
 
-<%= link_to 'Edit', edit_user_comentario_path(@user,@comentario) %> |
-<%= link_to 'Back', user_comentarios_path %>
+        <ul>
+          <li>
+            <a href="#"><b>Me gusta:</b> <%= @comentario.me_gusta%><b> No me gusta:</b><%= @comentario.no_me_gusta%> Hora Publicacion: <%= @comentario.hora_publicacion %></a>
+          </li>
+        </ul>
+        <object type="application/x-shockwave-flash" style="width:670px;height:250px" data="http://www.youtube.com/v/<%= @comentario.archivo %>"> <param name="movie" value="http://www.youtube.com/v/<%= @comentario.archivo %>"/></object>
+
+      </a></li>
+
+  </ul>
+</div>
+
+<%#= link_to 'Crear comentario', new_user_comentario_path(params[:user_id]) %>
+<%=link_to 'Editar Comentario', edit_user_comentario_path(@user.id,@comentario.id) %>
+<%= link_to 'Atras', user_comentarios_path %>

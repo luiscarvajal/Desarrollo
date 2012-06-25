@@ -1,0 +1,27 @@
+<div class="buscar_comentario"></div>
+<div class="boton_buscar"></div>
+<h1>Usuarios</h1>
+<% @usuarios.each do |usuario| %>
+  <div id="vertmenu_usuario">
+    <ul>
+      <li><a href="/usuarios/<%=usuario.id%>" tabindex="1">
+          <img alt="FotoPerfil" width="100px" src="http://localhost:3000/assets/ImagenesDesarrollo/foto.jpg<%#=usuario.foto %>" class="foto_usuario_index" style="  float: left;
+               margin-right: 20px;" /> <h1 class="titulos" ><%= usuario.nick_name %> <span style="color:  lightgrey; font-size: 50%" ><%= usuario.correo %></span> </h1>
+
+            <%= link_to usuario.nombre,usuario_path(usuario.id)%> <%= link_to usuario.apellido,usuario_path(usuario.id)%>
+          <span style="color:  lightgrey; font-size: 100%" >Pais</span>
+          <%= link_to usuario.pais,usuario_path(usuario.id)%>
+          <br><span style="color:  lightgrey; font-size: 100%" >Biografia</span></br>
+<%= link_to usuario.biografia,usuario_path(usuario.id)%>
+
+          <br></br>
+          <%= link_to 'Show',usuario_path(usuario.id)%>
+          <%= link_to 'Edit', edit_usuario_path(usuario.id) %>
+          <%= link_to 'Destroy', usuario_path(usuario.id), confirm: 'Are you sure?', method: :delete %>
+        </a></li>
+
+    </ul>
+  </div>
+<% end %>
+
+<span style="color: #ffffff" ><%= link_to 'New usuario', new_usuario_path , :class =>"classname"%></span>

@@ -37,11 +37,15 @@ a:hover{
             </ul>
           </div>
           <div id="vertmenu">
-            Tags
             <ul>
-              <li><a href="#" tabindex="1">Desarrollo <%#= f.check_box  :mensaje %></a></li>
-              <li><a href="#" tabindex="2">Chavez Muere<%#= f.check_box  :mensaje %></a></li>
-              <li><a href="#" tabindex="6"></a></li>
+              <li><a href="#" tabindex="1">Tags
+                <%=
+                
+                if @tags!=nil
+                select("post", "tag_id", @tags.collect {|p| [ p.nombre, p.id_tag ] }, {:include_blank => 'Selecciona'})
+                end
+
+                 %></a></li>
             </ul>
           </div>
       </div>

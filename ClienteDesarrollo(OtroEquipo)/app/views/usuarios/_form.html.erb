@@ -1,0 +1,62 @@
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table border="0"><tr>
+    <td>
+        <div class="field">
+    <%= f.label :nick %><br />
+    <%= f.text_field :nick, :required => true %>
+  </div>
+        <div class="field">
+    <%= f.label :correo %><br />
+    <%= f.text_field :correo, :required => true %>
+  </div>
+
+        <div class="field">
+    <%= f.label :Password %><br />
+    <%= f.password_field :Password, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :Password %><br />
+    <%= f.password_field :Password , :required => true%>
+  </div>
+    </td>
+ 
+    <td>
+        <div class="field">
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre, :required => true %>
+  </div>
+        <div class="field">
+    <%= f.label :apellido %><br />
+    <%= f.text_field :apellido, :required => true %>
+  </div>
+        <div class="field">
+    <%= f.label :pais_origen %><br />
+    <%= f.text_field :pais_origen, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :biografia %><br />
+    <%= f.text_field :biografia, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_nacimiento %><br />
+    <%= f.text_field :fecha_nac, :required => true %>
+  </div>
+    </td>
+  </tr>
+</table>
+
+  <div class="actions">
+    <%= f.submit "Crear Usuario" ,  :class =>"classname"%>
+  </div>
+<% end %>

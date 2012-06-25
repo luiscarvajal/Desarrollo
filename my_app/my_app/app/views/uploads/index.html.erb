@@ -1,0 +1,11 @@
+<!- app/views/upload/uploadfile.html.erb -->
+<h1>Multiple Files Upload Using Rails and jQuery</h1>
+  <% form_for(:upload, :html => {:multipart => true}) do |f| %>  
+  <p>
+    <%= f.label :picture %><br />
+    <%= f.file_field :picture %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>

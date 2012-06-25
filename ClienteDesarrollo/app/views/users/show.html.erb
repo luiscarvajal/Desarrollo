@@ -12,12 +12,12 @@
 <%= link_to @user.biografia,user_path(@user.id)%>
 
           <br></br>
-          <%= link_to 'Show',user_path(@user.id)%>
-          <%= link_to 'Edit', edit_user_path(@user.id) %>
-          <%= link_to 'Destroy', user_path(@user.id), confirm: 'Are you sure?', method: :delete %>
+          <%= link_to 'Crear comentario', new_user_comentario_path(@user.id) %>
+          <%= link_to 'Editar Perfil', edit_user_path(@user.id) %>
+          <%= link_to 'Eliminar', user_path(@user.id), confirm: '¿Estas seguro?', method: :delete %>
         </a></li>
 
     </ul>
   </div>
 
-<%= link_to 'Back', users_path %>
+<%= link_to 'Atras', users_path %>
